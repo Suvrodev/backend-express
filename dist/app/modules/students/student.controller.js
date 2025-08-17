@@ -26,6 +26,7 @@ const createStudent = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         res.status(500).json({
             success: false,
             message: "Something is went wrong",
+            // error: error.message || error,
             error: error,
         });
     }

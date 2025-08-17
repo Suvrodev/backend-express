@@ -40,6 +40,7 @@ const studentSchema = new Schema<TStudent>(
   },
   {
     timestamps: true,
+    strict: "throw",
   }
 );
 

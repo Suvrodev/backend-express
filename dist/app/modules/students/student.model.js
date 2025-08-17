@@ -39,5 +39,6 @@ const studentSchema = new mongoose_1.Schema({
     isBlocked: { type: Boolean, default: false },
 }, {
     timestamps: true,
+    strict: "throw",
 });
 exports.StudentModel = (0, mongoose_1.model)("student", studentSchema);
