@@ -42,9 +42,42 @@ const getSingleStudent = async (req: Request, res: Response) => {
     console.log("Error in create Student: ", error);
   }
 };
+const deleteStudent = async (req: Request, res: Response) => {
+  try {
+    const { email } = req.params;
+    const result = await studentServices.deleteStudentFromDB(email);
+    res.status(200).json({
+      success: true,
+      message: "Student Deleted Successfully",
+      data: result,
+    });
+  } catch (error) {
+    console.log("Error in create Student: ", error);
+  }
+};
+
+const updateStudent = async (req: Request, res: Response) => {
+  try {
+    const { email } = req.params;
+    const studentData = req.body;
+    const result = await studentServices.updateStudentFromDB(
+      email,
+      studentData
+    );
+    res.status(200).json({
+      success: true,
+      message: "Student Updated Successfully",
+      data: result,
+    });
+  } catch (error) {
+    console.log("Error in create Student: ", error);
+  }
+};
 
 export const studentControllers = {
   createStudent,
   getAllStudent,
   getSingleStudent,
+  deleteStudent,
+  updateStudent,
 };

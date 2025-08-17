@@ -6,6 +6,8 @@ const router = express.Router();
 router.post("/create-student", studentControllers.createStudent);
 router.get("/", studentControllers.getAllStudent);
 router.get("/:email", studentControllers.getSingleStudent);
+router.delete("/:email", studentControllers.deleteStudent);
+router.patch("/:email", studentControllers.updateStudent);
 
 export const studentRoutes = router;
 
@@ -18,5 +20,9 @@ export const studentRoutes = router;
  * 6. ROute not found
  * 7.App Error
  * 8. Global Error
- * 9.
+ * 9. send email
+ * 10. Image
+ * 11. Refresh token
+ * 12. Access token
+ * 13.Password
  */

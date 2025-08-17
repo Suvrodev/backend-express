@@ -7,15 +7,31 @@ const createStudentIntoDB = async (student: TStudent) => {
 };
 
 const getAllStudentFromDB = async () => {
-  console.log("__________________________________");
   const res = await StudentModel.find();
   return res;
 };
 
 const getSingleStudentFromDB = async (email: string) => {
-  console.log("================");
-  console.log("Come Email: ", email);
   const res = await StudentModel.findOne({ email: email });
+  return res;
+};
+
+const deleteStudentFromDB = async (email: string) => {
+  const res = await StudentModel.deleteOne({ email: email });
+  return res;
+};
+const updateStudentFromDB = async (
+  email: string,
+  studentData: Partial<TStudent>
+) => {
+  const res = await StudentModel.findOneAndUpdate(
+    { email: email },
+    studentData,
+    {
+      new: true,
+    }
+  );
+
   return res;
 };
 
@@ -23,4 +39,6 @@ export const studentServices = {
   createStudentIntoDB,
   getAllStudentFromDB,
   getSingleStudentFromDB,
+  deleteStudentFromDB,
+  updateStudentFromDB,
 };

@@ -53,8 +53,39 @@ const getSingleStudent = (req, res) => __awaiter(void 0, void 0, void 0, functio
         console.log("Error in create Student: ", error);
     }
 });
+const deleteStudent = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { email } = req.params;
+        const result = yield student_service_1.studentServices.deleteStudentFromDB(email);
+        res.status(200).json({
+            success: true,
+            message: "Student Deleted Successfully",
+            data: result,
+        });
+    }
+    catch (error) {
+        console.log("Error in create Student: ", error);
+    }
+});
+const updateStudent = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { email } = req.params;
+        const studentData = req.body;
+        const result = yield student_service_1.studentServices.updateStudentFromDB(email, studentData);
+        res.status(200).json({
+            success: true,
+            message: "Student Updated Successfully",
+            data: result,
+        });
+    }
+    catch (error) {
+        console.log("Error in create Student: ", error);
+    }
+});
 exports.studentControllers = {
     createStudent,
     getAllStudent,
     getSingleStudent,
+    deleteStudent,
+    updateStudent,
 };

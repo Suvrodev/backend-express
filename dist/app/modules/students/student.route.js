@@ -10,6 +10,8 @@ const router = express_1.default.Router();
 router.post("/create-student", student_controller_1.studentControllers.createStudent);
 router.get("/", student_controller_1.studentControllers.getAllStudent);
 router.get("/:email", student_controller_1.studentControllers.getSingleStudent);
+router.delete("/:email", student_controller_1.studentControllers.deleteStudent);
+router.patch("/:email", student_controller_1.studentControllers.updateStudent);
 exports.studentRoutes = router;
 /**
  * 1. Block and delete student asbe na
@@ -20,5 +22,9 @@ exports.studentRoutes = router;
  * 6. ROute not found
  * 7.App Error
  * 8. Global Error
- * 9.
+ * 9. send email
+ * 10. Image
+ * 11. Refresh token
+ * 12. Access token
+ * 13.Password
  */
