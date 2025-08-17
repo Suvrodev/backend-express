@@ -26,9 +26,10 @@ const updateStudentFromDB = async (
 ) => {
   const res = await StudentModel.findOneAndUpdate(
     { email: email },
-    studentData,
+    { $set: studentData },
     {
       new: true,
+      runValidators: true,
     }
   );
 

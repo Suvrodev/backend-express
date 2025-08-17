@@ -78,8 +78,12 @@ const updateStudent = async (req: Request, res: Response) => {
       message: "Student Updated Successfully",
       data: result,
     });
-  } catch (error) {
-    console.log("Error in create Student: ", error);
+  } catch (error: any) {
+    res.status(500).json({
+      success: false,
+      message: "Something is went wrong",
+      error: error.message || error,
+    });
   }
 };
 
