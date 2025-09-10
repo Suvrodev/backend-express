@@ -15,12 +15,23 @@ export type TStudent = {
   isBlocked: boolean;
 };
 
-export type StudentMethods = {
-  isUserExists(email: string): Promise<TStudent | null>;
-};
+/**
+ * For Custom Instance
+ */
+// export type StudentMethods = {
+//   isUserExists(email: string): Promise<TStudent | null>;
+// };
 
-export type MStudentModel = Model<
-  TStudent,
-  Record<string, never>,
-  StudentMethods
->;
+// export type MStudentModel = Model<
+//   TStudent,
+//   Record<string, never>,
+//   StudentMethods
+// >;
+
+/**
+ * For Creating Static
+ */
+
+export interface MStudentModel extends Model<TStudent> {
+  isStudentExists(email: string): Promise<TStudent | null>;
+}

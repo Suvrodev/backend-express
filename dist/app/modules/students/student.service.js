@@ -12,12 +12,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.studentServices = void 0;
 const student_model_1 = require("./student.model");
 const createStudentIntoDB = (student) => __awaiter(void 0, void 0, void 0, function* () {
-    // const res = await StudentModel.create(student);
-    const studentObj = new student_model_1.StudentModel(student);
-    if (yield studentObj.isUserExists(student.email)) {
-        throw new Error("User Already Exists");
+    //For Custom Instance
+    //   const studentObj = new StudentModel(student);
+    //   if (await studentObj.isUserExists(student.email)) {
+    //     throw new Error("User Already Exists");
+    //   }
+    //   const res = await studentObj.save();
+    if (yield student_model_1.StudentModel.isStudentExists(student.email)) {
+        throw new Error("Student Already Exists");
     }
-    const res = yield studentObj.save();
+    const res = yield student_model_1.StudentModel.create(student);
     return res;
 });
 const getAllStudentFromDB = () => __awaiter(void 0, void 0, void 0, function* () {

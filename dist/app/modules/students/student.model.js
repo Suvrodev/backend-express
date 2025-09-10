@@ -51,7 +51,13 @@ const studentSchema = new mongoose_1.Schema({
     timestamps: true,
     strict: "throw",
 });
-studentSchema.methods.isUserExists = function (email) {
+//Creating an custom instance method
+// studentSchema.methods.isUserExists = async function (email: string) {
+//   const existingStudent = await StudentModel.findOne({ email });
+//   return existingStudent;
+// };
+//Creating static
+studentSchema.statics.isStudentExists = function (email) {
     return __awaiter(this, void 0, void 0, function* () {
         const existingStudent = yield exports.StudentModel.findOne({ email });
         return existingStudent;

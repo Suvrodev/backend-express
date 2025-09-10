@@ -1,7 +1,7 @@
 import { model, Schema } from "mongoose";
-import { MStudentModel, StudentMethods, TStudent } from "./students.interface";
+import { MStudentModel, TStudent } from "./students.interface";
 
-const studentSchema = new Schema<TStudent, MStudentModel, StudentMethods>(
+const studentSchema = new Schema<TStudent, MStudentModel>(
   {
     id: {
       type: Number,
@@ -45,9 +45,15 @@ const studentSchema = new Schema<TStudent, MStudentModel, StudentMethods>(
   }
 );
 
-studentSchema.methods.isUserExists = async function (email: string) {
-  const existingStudent = await StudentModel.findOne({ email });
+//Creating an custom instance method
+// studentSchema.methods.isUserExists = async function (email: string) {
+//   const existingStudent = await StudentModel.findOne({ email });
+//   return existingStudent;
+// };
 
+//Creating static
+studentSchema.statics.isStudentExists = async function (email: string) {
+  const existingStudent = await StudentModel.findOne({ email });
   return existingStudent;
 };
 

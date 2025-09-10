@@ -2,12 +2,18 @@ import { StudentModel } from "./student.model";
 import { TStudent } from "./students.interface";
 
 const createStudentIntoDB = async (student: TStudent) => {
-  // const res = await StudentModel.create(student);
-  const studentObj = new StudentModel(student);
-  if (await studentObj.isUserExists(student.email)) {
-    throw new Error("User Already Exists");
+  //For Custom Instance
+  //   const studentObj = new StudentModel(student);
+  //   if (await studentObj.isUserExists(student.email)) {
+  //     throw new Error("User Already Exists");
+  //   }
+  //   const res = await studentObj.save();
+
+  if (await StudentModel.isStudentExists(student.email)) {
+    throw new Error("Student Already Exists");
   }
-  const res = await studentObj.save();
+
+  const res = await StudentModel.create(student);
   return res;
 };
 
