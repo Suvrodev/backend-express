@@ -65,7 +65,19 @@ studentSchema.pre("save", function (next) {
         //Hashing password and save into db
         const user = this;
         user.password = yield bcrypt_1.default.hash(user.password, Number(config_1.default.bcrypt_salt_rounds));
-        console.log(this, "Pre hook: We will save data");
+        // console.log(this, "Pre hook: We will save data");
+        next();
+    });
+});
+studentSchema.pre("save", function (next) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const user = this;
+        const email = user.email;
+        const existingStudent = yield exports.StudentModel.findOne({ email: user.email });
+        if (existingStudent) {
+            // If found, stop saving by passing error
+            return next(new Error("Student with this email already exists"));
+        }
         next();
     });
 });

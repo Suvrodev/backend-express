@@ -9,9 +9,9 @@ const createStudentIntoDB = async (student: TStudent) => {
   //   }
   //   const res = await studentObj.save();
 
-  if (await StudentModel.isStudentExists(student.email)) {
-    throw new Error("Student Already Exists");
-  }
+  // if (await StudentModel.isStudentExists(student.email)) {
+  //   throw new Error("Student Already Exists");
+  // }
 
   const res = await StudentModel.create(student);
   return res;

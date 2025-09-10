@@ -59,7 +59,18 @@ studentSchema.pre("save", async function (next) {
     user.password,
     Number(config.bcrypt_salt_rounds)
   );
-  console.log(this, "Pre hook: We will save data");
+  // console.log(this, "Pre hook: We will save data");
+  next();
+});
+
+studentSchema.pre("save", async function (next) {
+  const user = this as TStudent;
+  const email = user.email;
+  const existingStudent = await StudentModel.findOne({ email: user.email });
+  if (existingStudent) {
+    // If found, stop saving by passing error
+    return next(new Error("Student with this email already exists"));
+  }
   next();
 });
 
