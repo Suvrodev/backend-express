@@ -10,6 +10,6 @@ const router = express_1.default.Router();
 router.post("/create-student", student_controller_1.studentControllers.createStudent);
 router.get("/", student_controller_1.studentControllers.getAllStudent);
 router.get("/:email", student_controller_1.studentControllers.getSingleStudent);
-router.delete("/:email", student_controller_1.studentControllers.deleteStudent);
+router.put("/:email", student_controller_1.studentControllers.deleteStudent);
 router.patch("/:email", student_controller_1.studentControllers.updateStudent);
 exports.studentRoutes = router;

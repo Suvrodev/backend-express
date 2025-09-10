@@ -59,6 +59,7 @@ const studentSchema = new mongoose_1.Schema({
 /**
  * Middleware start
  */
+//Document Middlware
 studentSchema.pre("save", function (next) {
     return __awaiter(this, void 0, void 0, function* () {
         //Hashing password and save into db
@@ -68,8 +69,15 @@ studentSchema.pre("save", function (next) {
         next();
     });
 });
-studentSchema.post("save", function () {
-    console.log("Post Hook: We saved Our Data");
+studentSchema.post("save", function (doc, next) {
+    // console.log("Post Hook: We saved Our Data");
+    doc.password = "";
+    next();
+});
+//Query Middlware
+studentSchema.pre("find", function (next) {
+    this.find({ isDelete: false });
+    next();
 });
 /**
  * Middleware end
@@ -87,3 +95,8 @@ studentSchema.statics.isStudentExists = function (email) {
     });
 };
 exports.StudentModel = (0, mongoose_1.model)("student", studentSchema);
+/**
+ *  Save- Remove ->Document middlware ->current document e point kore
+ *  find- Query Middleware ->  Current Query k
+ *   aggregate ->Aggregation Middleware -> Current pipeline k point kore
+ */

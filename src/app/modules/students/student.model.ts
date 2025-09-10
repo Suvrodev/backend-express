@@ -50,6 +50,8 @@ const studentSchema = new Schema<TStudent, MStudentModel>(
  * Middleware start
  */
 
+//Document Middlware
+
 studentSchema.pre("save", async function (next) {
   //Hashing password and save into db
   const user = this;
@@ -61,8 +63,16 @@ studentSchema.pre("save", async function (next) {
   next();
 });
 
-studentSchema.post("save", function () {
-  console.log("Post Hook: We saved Our Data");
+studentSchema.post("save", function (doc, next) {
+  // console.log("Post Hook: We saved Our Data");
+  doc.password = "";
+  next();
+});
+
+//Query Middlware
+studentSchema.pre("find", function (next) {
+  this.find({ isDelete: false });
+  next();
 });
 
 /**
@@ -85,3 +95,9 @@ export const StudentModel = model<TStudent, MStudentModel>(
   "student",
   studentSchema
 );
+
+/**
+ *  Save- Remove ->Document middlware ->current document e point kore
+ *  find- Query Middleware ->  Current Query k
+ *   aggregate ->Aggregation Middleware -> Current pipeline k point kore
+ */

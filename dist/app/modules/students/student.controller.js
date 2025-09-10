@@ -28,7 +28,6 @@ const createStudent = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         res.status(500).json({
             success: false,
             message: error.message,
-            // error: error.message || error,
             error: error,
         });
     }
@@ -43,7 +42,11 @@ const getAllStudent = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         });
     }
     catch (error) {
-        console.log("Error in create Student: ", error);
+        res.status(500).json({
+            success: false,
+            message: error.message,
+            error: error,
+        });
     }
 });
 const getSingleStudent = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -59,7 +62,7 @@ const getSingleStudent = (req, res) => __awaiter(void 0, void 0, void 0, functio
     catch (error) {
         res.status(500).json({
             success: false,
-            message: "Something is went wrong",
+            message: error.message,
             error: error,
         });
     }
@@ -75,7 +78,11 @@ const deleteStudent = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         });
     }
     catch (error) {
-        console.log("Error in create Student: ", error);
+        res.status(500).json({
+            success: false,
+            message: error.message,
+            error: error,
+        });
     }
 });
 const updateStudent = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -92,8 +99,8 @@ const updateStudent = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     catch (error) {
         res.status(500).json({
             success: false,
-            message: "Something is went wrong",
-            error: error.message || error,
+            message: error.message,
+            error: error,
         });
     }
 });

@@ -33,7 +33,7 @@ const getSingleStudentFromDB = (email) => __awaiter(void 0, void 0, void 0, func
     return res;
 });
 const deleteStudentFromDB = (email) => __awaiter(void 0, void 0, void 0, function* () {
-    const res = yield student_model_1.StudentModel.deleteOne({ email: email });
+    const res = yield student_model_1.StudentModel.findOneAndUpdate({ email: email }, { isDelete: true }, { new: true, runValidators: true });
     return res;
 });
 const updateStudentFromDB = (email, studentData) => __awaiter(void 0, void 0, void 0, function* () {

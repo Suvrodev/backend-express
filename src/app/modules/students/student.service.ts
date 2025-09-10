@@ -28,7 +28,11 @@ const getSingleStudentFromDB = async (email: string) => {
 };
 
 const deleteStudentFromDB = async (email: string) => {
-  const res = await StudentModel.deleteOne({ email: email });
+  const res = await StudentModel.findOneAndUpdate(
+    { email: email },
+    { isDelete: true },
+    { new: true, runValidators: true }
+  );
   return res;
 };
 const updateStudentFromDB = async (
