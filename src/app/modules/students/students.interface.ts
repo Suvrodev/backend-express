@@ -1,6 +1,7 @@
 export type TStudent = {
   id: number;
   name: string;
+  taka: number;
   image: string;
   email: string;
   dob: string;

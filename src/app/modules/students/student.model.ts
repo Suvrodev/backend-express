@@ -9,6 +9,7 @@ const studentSchema = new Schema<TStudent>(
       unique: true,
     },
     name: { type: String, required: [true, "Student name is required"] },
+    taka: { type: Number, required: [true, "Taka is required"] },
     image: { type: String, required: [true, "Student image is required"] },
     email: {
       type: String,
@@ -40,7 +41,7 @@ const studentSchema = new Schema<TStudent>(
   },
   {
     timestamps: true,
-    strict: "throw",
+    // strict: "throw",
   }
 );
 

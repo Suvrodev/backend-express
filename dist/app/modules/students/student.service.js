@@ -30,7 +30,7 @@ const deleteStudentFromDB = (email) => __awaiter(void 0, void 0, void 0, functio
 const updateStudentFromDB = (email, studentData) => __awaiter(void 0, void 0, void 0, function* () {
     const res = yield student_model_1.StudentModel.findOneAndUpdate({ email: email }, { $set: studentData }, {
         new: true,
-        runValidators: true,
+        runValidators: true, //Model er role use korbe
     });
     return res;
 });

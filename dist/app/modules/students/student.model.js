@@ -9,6 +9,7 @@ const studentSchema = new mongoose_1.Schema({
         unique: true,
     },
     name: { type: String, required: [true, "Student name is required"] },
+    taka: { type: Number, required: [true, "Taka is required"] },
     image: { type: String, required: [true, "Student image is required"] },
     email: {
         type: String,
@@ -39,6 +40,6 @@ const studentSchema = new mongoose_1.Schema({
     isBlocked: { type: Boolean, default: false },
 }, {
     timestamps: true,
-    strict: "throw",
+    // strict: "throw",
 });
 exports.StudentModel = (0, mongoose_1.model)("student", studentSchema);

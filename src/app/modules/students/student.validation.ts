@@ -26,6 +26,7 @@ export const studentValidationSchemaByZod = z
       }),
 
     name: z.string().min(1, { message: "Student name is required by Zod" }),
+    taka: z.number().min(1, { message: "Taka is required by Zod" }),
 
     image: z.string().url({ message: "Image must be a valid URL by Zod" }),
 

@@ -29,7 +29,7 @@ const updateStudentFromDB = async (
     { $set: studentData },
     {
       new: true,
-      runValidators: true,
+      runValidators: true, //Model er role use korbe
     }
   );
 

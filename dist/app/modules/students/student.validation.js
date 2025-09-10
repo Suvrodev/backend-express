@@ -22,6 +22,7 @@ exports.studentValidationSchemaByZod = zod_1.z
         message: "Student ID is required by Zod",
     }),
     name: zod_1.z.string().min(1, { message: "Student name is required by Zod" }),
+    taka: zod_1.z.number().min(1, { message: "Taka is required by Zod" }),
     image: zod_1.z.string().url({ message: "Image must be a valid URL by Zod" }),
     email: zod_1.z
         .string()
