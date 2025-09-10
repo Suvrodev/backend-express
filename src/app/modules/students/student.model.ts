@@ -1,7 +1,7 @@
 import { model, Schema } from "mongoose";
-import { TStudent } from "./students.interface";
+import { MStudentModel, StudentMethods, TStudent } from "./students.interface";
 
-const studentSchema = new Schema<TStudent>(
+const studentSchema = new Schema<TStudent, MStudentModel, StudentMethods>(
   {
     id: {
       type: Number,
@@ -41,8 +41,17 @@ const studentSchema = new Schema<TStudent>(
   },
   {
     timestamps: true,
-    // strict: "throw",
+    strict: "throw",
   }
 );
 
-export const StudentModel = model<TStudent>("student", studentSchema);
+studentSchema.methods.isUserExists = async function (email: string) {
+  const existingStudent = await StudentModel.findOne({ email });
+
+  return existingStudent;
+};
+
+export const StudentModel = model<TStudent, MStudentModel>(
+  "student",
+  studentSchema
+);

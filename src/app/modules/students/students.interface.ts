@@ -1,3 +1,5 @@
+import { Model } from "mongoose";
+
 export type TStudent = {
   id: number;
   name: string;
@@ -12,3 +14,13 @@ export type TStudent = {
   isDelete: boolean;
   isBlocked: boolean;
 };
+
+export type StudentMethods = {
+  isUserExists(email: string): Promise<TStudent | null>;
+};
+
+export type MStudentModel = Model<
+  TStudent,
+  Record<string, never>,
+  StudentMethods
+>;

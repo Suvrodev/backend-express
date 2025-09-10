@@ -34,4 +34,5 @@ export default app;
  * 11. Refresh token
  * 12. Access token
  * 13.Password
+ * 14. CatchAsyncFunction
  */
