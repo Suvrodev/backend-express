@@ -1,6 +1,7 @@
 import { model, Schema } from "mongoose";
 import { MStudentModel, TStudent } from "./students.interface";
-
+import bcrypt from "bcrypt";
+import config from "../../config";
 const studentSchema = new Schema<TStudent, MStudentModel>(
   {
     id: {
@@ -44,6 +45,29 @@ const studentSchema = new Schema<TStudent, MStudentModel>(
     strict: "throw",
   }
 );
+
+/**
+ * Middleware start
+ */
+
+studentSchema.pre("save", async function (next) {
+  //Hashing password and save into db
+  const user = this;
+  user.password = await bcrypt.hash(
+    user.password,
+    Number(config.bcrypt_salt_rounds)
+  );
+  console.log(this, "Pre hook: We will save data");
+  next();
+});
+
+studentSchema.post("save", function () {
+  console.log("Post Hook: We saved Our Data");
+});
+
+/**
+ * Middleware end
+ */
 
 //Creating an custom instance method
 // studentSchema.methods.isUserExists = async function (email: string) {

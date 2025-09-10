@@ -14,7 +14,7 @@ const student_service_1 = require("./student.service");
 const student_validation_1 = require("./student.validation");
 const createStudent = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const studentData = req.body;
-    console.log("Studentt Data: ", studentData);
+    // console.log("Studentt Data: ", studentData);
     const zodParserData = student_validation_1.studentValidationSchemaByZod.parse(studentData);
     try {
         const result = yield student_service_1.studentServices.createStudentIntoDB(zodParserData);
