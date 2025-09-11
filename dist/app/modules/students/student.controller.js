@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.studentControllers = void 0;
 const student_service_1 = require("./student.service");
 const student_validation_1 = require("./student.validation");
-const createStudent = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const createStudent = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const studentData = req.body;
     // console.log("Studentt Data: ", studentData);
     const zodParserData = student_validation_1.studentValidationSchemaByZod.parse(studentData);
@@ -25,11 +25,12 @@ const createStudent = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         });
     }
     catch (error) {
-        res.status(500).json({
-            success: false,
-            message: error.message,
-            error: error,
-        });
+        // res.status(500).json({
+        //   success: false,
+        //   message: error.message,
+        //   error: error,
+        // });
+        next(error);
     }
 });
 const getAllStudent = (req, res) => __awaiter(void 0, void 0, void 0, function* () {

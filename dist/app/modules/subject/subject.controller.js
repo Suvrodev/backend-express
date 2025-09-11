@@ -11,7 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SubjectControllers = void 0;
 const subject_service_1 = require("./subject.service");
-const createSubject = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const createSubject = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const subjectBody = req.body;
     // console.log("Studentt Data: ", studentData);
     //   const zodParserData = subjectValidationSchema.parse(subjectBody);
@@ -24,14 +24,15 @@ const createSubject = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         });
     }
     catch (error) {
-        res.status(500).json({
-            success: false,
-            message: error.message,
-            error: error,
-        });
+        // res.status(500).json({
+        //   success: false,
+        //   message: error.message,
+        //   error: error,
+        // });
+        next(error);
     }
 });
-const getAllSubject = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const getAllSubject = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const result = yield subject_service_1.SubjectServices.getAllSubjectFromDB();
         res.status(200).json({
@@ -41,14 +42,10 @@ const getAllSubject = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         });
     }
     catch (error) {
-        res.status(500).json({
-            success: false,
-            message: error.message,
-            error: error,
-        });
+        next(error);
     }
 });
-const getSingleSubject = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const getSingleSubject = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { id } = req.params;
         const result = yield subject_service_1.SubjectServices.getSingleSubjectFromDB(id);
@@ -59,14 +56,10 @@ const getSingleSubject = (req, res) => __awaiter(void 0, void 0, void 0, functio
         });
     }
     catch (error) {
-        res.status(500).json({
-            success: false,
-            message: error.message,
-            error: error,
-        });
+        next(error);
     }
 });
-const deleteSubject = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const deleteSubject = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { id } = req.params;
         const result = yield subject_service_1.SubjectServices.deleteSubjectFromDB(id);
@@ -77,14 +70,10 @@ const deleteSubject = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         });
     }
     catch (error) {
-        res.status(500).json({
-            success: false,
-            message: error.message,
-            error: error,
-        });
+        next(error);
     }
 });
-const updateSubject = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const updateSubject = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { id } = req.params;
         const subjectData = req.body;
@@ -96,11 +85,7 @@ const updateSubject = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         });
     }
     catch (error) {
-        res.status(500).json({
-            success: false,
-            message: error.message,
-            error: error,
-        });
+        next(error);
     }
 });
 exports.SubjectControllers = {

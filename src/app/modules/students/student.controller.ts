@@ -1,8 +1,12 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { studentServices } from "./student.service";
 import { studentValidationSchemaByZod } from "./student.validation";
 
-const createStudent = async (req: Request, res: Response) => {
+const createStudent = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   const studentData = req.body;
   // console.log("Studentt Data: ", studentData);
 
@@ -17,11 +21,13 @@ const createStudent = async (req: Request, res: Response) => {
       data: result,
     });
   } catch (error: any) {
-    res.status(500).json({
-      success: false,
-      message: error.message,
-      error: error,
-    });
+    // res.status(500).json({
+    //   success: false,
+    //   message: error.message,
+    //   error: error,
+    // });
+
+    next(error);
   }
 };
 

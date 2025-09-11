@@ -4,6 +4,7 @@ import cors from "cors";
 import config from "./app/config";
 import { studentRoutes } from "./app/modules/students/student.route";
 import { subjectRoutes } from "./app/modules/subject/subject.route";
+import globalErrorHandler from "./app/modules/middleware/globalErrorHandler";
 const app: Application = express();
 
 //Perser For req.body - json
@@ -19,6 +20,8 @@ app.get("/", (req: Request, res: Response) => {
     message: `This back end is Listening is on port ${config.port}`,
   });
 });
+
+app.use(globalErrorHandler);
 
 export default app;
 
