@@ -36,7 +36,11 @@ const studentSchema = new Schema<TStudent, MStudentModel>(
       },
       required: [true, "Blood group is required"],
     },
-    password: { type: String, required: [true, "Password is required"] },
+    password: {
+      type: String,
+      required: [true, "Password is required"],
+      select: false,
+    },
     isDelete: { type: Boolean, default: false },
     isBlocked: { type: Boolean, default: false },
   },
