@@ -10,6 +10,7 @@ const config_1 = __importDefault(require("./app/config"));
 const student_route_1 = require("./app/modules/students/student.route");
 const subject_route_1 = require("./app/modules/subject/subject.route");
 const globalErrorHandler_1 = __importDefault(require("./app/modules/middleware/globalErrorHandler"));
+const notFound_1 = __importDefault(require("./app/modules/middleware/notFound"));
 const app = (0, express_1.default)();
 //Perser For req.body - json
 app.use(express_1.default.json());
@@ -23,6 +24,7 @@ app.get("/", (req, res) => {
     });
 });
 app.use(globalErrorHandler_1.default);
+app.use(notFound_1.default);
 exports.default = app;
 /**
  * 1. Block and delete student asbe na ---------------------

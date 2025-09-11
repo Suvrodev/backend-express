@@ -5,6 +5,7 @@ import config from "./app/config";
 import { studentRoutes } from "./app/modules/students/student.route";
 import { subjectRoutes } from "./app/modules/subject/subject.route";
 import globalErrorHandler from "./app/modules/middleware/globalErrorHandler";
+import notFound from "./app/modules/middleware/notFound";
 const app: Application = express();
 
 //Perser For req.body - json
@@ -22,6 +23,7 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 app.use(globalErrorHandler);
+app.use(notFound);
 
 export default app;
 
