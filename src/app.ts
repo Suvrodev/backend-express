@@ -6,6 +6,7 @@ import { studentRoutes } from "./app/modules/students/student.route";
 import { subjectRoutes } from "./app/modules/subject/subject.route";
 import globalErrorHandler from "./app/modules/middleware/globalErrorHandler";
 import notFound from "./app/modules/middleware/notFound";
+import router from "./app/routes/routes";
 const app: Application = express();
 
 //Perser For req.body - json
@@ -13,8 +14,7 @@ app.use(express.json());
 app.use(cors());
 
 //application route
-app.use("/api/student", studentRoutes);
-app.use("/api/subject", subjectRoutes);
+app.use("/api", router);
 
 app.get("/", (req: Request, res: Response) => {
   res.json({
