@@ -18,9 +18,13 @@ const createStudentIntoDB = (student) => __awaiter(void 0, void 0, void 0, funct
     //     throw new Error("User Already Exists");
     //   }
     //   const res = await studentObj.save();
+    //For Static Method
     // if (await StudentModel.isStudentExists(student.email)) {
     //   throw new Error("Student Already Exists");
     // }
+    /**
+     * Ekhon Middleware theke e email check hoye asbe
+     */
     const res = yield student_model_1.StudentModel.create(student);
     return res;
 });

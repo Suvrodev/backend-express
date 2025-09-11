@@ -3,6 +3,7 @@ import express, { Application, NextFunction, Request, Response } from "express";
 import cors from "cors";
 import config from "./app/config";
 import { studentRoutes } from "./app/modules/students/student.route";
+import { subjectRoutes } from "./app/modules/subject/subject.route";
 const app: Application = express();
 
 //Perser For req.body - json
@@ -11,6 +12,7 @@ app.use(cors());
 
 //application route
 app.use("/api/student", studentRoutes);
+app.use("/api/subject", subjectRoutes);
 
 app.get("/", (req: Request, res: Response) => {
   res.json({
@@ -21,7 +23,7 @@ app.get("/", (req: Request, res: Response) => {
 export default app;
 
 /**
- * 1. Block and delete student asbe na
+ * 1. Block and delete student asbe na ---------------------
  * 2. Delete and Update
  * 3. Roll back
  * 4. Populate
@@ -35,9 +37,9 @@ export default app;
  * 12. Access token
  * 13.Password---------------------------
  * 14. CatchAsyncFunction
- * 15. Delete student asbe na by instance
- * 16. By Static
- * 17. Delete student asbe na and user already exists by middleware
+ * 15. Delete student asbe na by instance------------------------
+ * 16. By Static-------------------------
+ * 17. Delete student asbe na and user already exists by middleware------------------------
  * 18. Check User or admin in route
  * 19. app er bhitor error solve
  */

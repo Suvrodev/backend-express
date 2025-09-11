@@ -9,9 +9,14 @@ const createStudentIntoDB = async (student: TStudent) => {
   //   }
   //   const res = await studentObj.save();
 
+  //For Static Method
   // if (await StudentModel.isStudentExists(student.email)) {
   //   throw new Error("Student Already Exists");
   // }
+
+  /**
+   * Ekhon Middleware theke e email check hoye asbe
+   */
 
   const res = await StudentModel.create(student);
   return res;
