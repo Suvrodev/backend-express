@@ -1,105 +1,56 @@
-import { NextFunction, Request, Response } from "express";
+import { NextFunction, Request, RequestHandler, Response } from "express";
 import { SubjectServices } from "./subject.service";
-import { subjectValidationSchema } from "./subject.validation";
+import catchAsync from "../../utils/catchAsync";
 
-const createSubject = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+const createSubject = catchAsync(async (req, res, next) => {
   const subjectBody = req.body;
-  // console.log("Studentt Data: ", studentData);
 
-  //   const zodParserData = subjectValidationSchema.parse(subjectBody);
+  const result = await SubjectServices.createSubjectIntoDB(subjectBody);
 
-  try {
-    const result = await SubjectServices.createSubjectIntoDB(subjectBody);
+  res.status(200).json({
+    success: true,
+    message: "Subject Created Successfully",
+    data: result,
+  });
+});
 
-    res.status(200).json({
-      success: true,
-      message: "Subject Created Successfully",
-      data: result,
-    });
-  } catch (error: any) {
-    // res.status(500).json({
-    //   success: false,
-    //   message: error.message,
-    //   error: error,
-    // });
+const getAllSubject: RequestHandler = catchAsync(async (req, res, next) => {
+  const result = await SubjectServices.getAllSubjectFromDB();
+  res.status(200).json({
+    success: true,
+    message: "Subject Retrive Successfully",
+    data: result,
+  });
+});
+const getSingleSubject = catchAsync(async (req, res, next) => {
+  const { id } = req.params;
+  const result = await SubjectServices.getSingleSubjectFromDB(id);
+  res.status(200).json({
+    success: true,
+    message: "Subject Retrive Successfully",
+    data: result,
+  });
+});
+const deleteSubject: RequestHandler = catchAsync(async (req, res, next) => {
+  const { id } = req.params;
+  const result = await SubjectServices.deleteSubjectFromDB(id);
+  res.status(200).json({
+    success: true,
+    message: "Subject Deleted Successfully",
+    data: result,
+  });
+});
 
-    next(error);
-  }
-};
-
-const getAllSubject = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
-    const result = await SubjectServices.getAllSubjectFromDB();
-    res.status(200).json({
-      success: true,
-      message: "Subject Retrive Successfully",
-      data: result,
-    });
-  } catch (error: any) {
-    next(error);
-  }
-};
-const getSingleSubject = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
-    const { id } = req.params;
-    const result = await SubjectServices.getSingleSubjectFromDB(id);
-    res.status(200).json({
-      success: true,
-      message: "Subject Retrive Successfully",
-      data: result,
-    });
-  } catch (error: any) {
-    next(error);
-  }
-};
-const deleteSubject = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
-    const { id } = req.params;
-    const result = await SubjectServices.deleteSubjectFromDB(id);
-    res.status(200).json({
-      success: true,
-      message: "Subject Deleted Successfully",
-      data: result,
-    });
-  } catch (error: any) {
-    next(error);
-  }
-};
-
-const updateSubject = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
-    const { id } = req.params;
-    const subjectData = req.body;
-    const result = await SubjectServices.updateSubjectFromDB(id, subjectData);
-    res.status(200).json({
-      success: true,
-      message: "Subject Updated Successfully",
-      data: result,
-    });
-  } catch (error: any) {
-    next(error);
-  }
-};
+const updateSubject: RequestHandler = catchAsync(async (req, res, next) => {
+  const { id } = req.params;
+  const subjectData = req.body;
+  const result = await SubjectServices.updateSubjectFromDB(id, subjectData);
+  res.status(200).json({
+    success: true,
+    message: "Subject Updated Successfully",
+    data: result,
+  });
+});
 
 export const SubjectControllers = {
   createSubject,

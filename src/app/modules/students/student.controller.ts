@@ -1,12 +1,8 @@
-import { NextFunction, Request, Response } from "express";
+import { NextFunction, Request, RequestHandler, Response } from "express";
 import { studentServices } from "./student.service";
 import { studentValidationSchemaByZod } from "./student.validation";
 
-const createStudent = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
+const createStudent: RequestHandler = async (req, res, next) => {
   const studentData = req.body;
   // console.log("Studentt Data: ", studentData);
 
@@ -31,7 +27,7 @@ const createStudent = async (
   }
 };
 
-const getAllStudent = async (req: Request, res: Response) => {
+const getAllStudent: RequestHandler = async (req, res) => {
   try {
     const result = await studentServices.getAllStudentFromDB();
     res.status(200).json({
@@ -47,7 +43,7 @@ const getAllStudent = async (req: Request, res: Response) => {
     });
   }
 };
-const getSingleStudent = async (req: Request, res: Response) => {
+const getSingleStudent: RequestHandler = async (req, res) => {
   try {
     const { email } = req.params;
     const result = await studentServices.getSingleStudentFromDB(email);
@@ -82,7 +78,7 @@ const deleteStudent = async (req: Request, res: Response) => {
   }
 };
 
-const updateStudent = async (req: Request, res: Response) => {
+const updateStudent: RequestHandler = async (req, res) => {
   try {
     const { email } = req.params;
     const studentData = req.body;
