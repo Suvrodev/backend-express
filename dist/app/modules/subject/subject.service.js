@@ -42,6 +42,11 @@ const deleteSubjectFromDB = (id) => __awaiter(void 0, void 0, void 0, function* 
         console.log("Get Subject before delete: ", getSubject);
         console.log("Student id from Subject: ", studentIdFromSubject);
         const res = yield subject_model_1.SubjectModel.findOneAndDelete({ _id: id }).session(session);
+        const student = yield student_model_1.StudentModel.findById(studentIdFromSubject).session(session);
+        ///Check this-> first subject delete haoyar pore student check korche,Student Na pele Previous subject o delete hobe na
+        if (!student) {
+            throw new AppError_1.default(404, "Student not found");
+        }
         const deleteStudentRes = yield student_model_1.StudentModel.findOneAndDelete({
             _id: studentIdFromSubject,
         }).session(session);

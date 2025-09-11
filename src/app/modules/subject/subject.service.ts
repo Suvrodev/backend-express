@@ -30,11 +30,22 @@ const deleteSubjectFromDB = async (id: string) => {
       throw new AppError(404, "Subject Not Found");
     }
     const studentIdFromSubject = getSubject?.studentId;
+
     console.log("Get Subject before delete: ", getSubject);
     console.log("Student id from Subject: ", studentIdFromSubject);
     const res = await SubjectModel.findOneAndDelete({ _id: id }).session(
       session
     );
+
+    const student = await StudentModel.findById(studentIdFromSubject).session(
+      session
+    );
+
+    ///Check this-> first subject delete haoyar pore student check korche,Student Na pele Previous subject o delete hobe na
+    if (!student) {
+      throw new AppError(404, "Student not found");
+    }
+
     const deleteStudentRes = await StudentModel.findOneAndDelete({
       _id: studentIdFromSubject,
     }).session(session);
