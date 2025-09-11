@@ -9,7 +9,11 @@ const subjectSchema = new mongoose_1.Schema({
         unique: true,
     },
     language: { type: String, required: [true, "Language is required"] },
-    studentId: { type: String, required: [true, "Student id is required"] },
+    studentId: {
+        type: mongoose_1.Schema.Types.ObjectId,
+        required: [true, "Student id is required"],
+        ref: "student",
+    },
 }, {
     timestamps: true,
     strict: "throw",

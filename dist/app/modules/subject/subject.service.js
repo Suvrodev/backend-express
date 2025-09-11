@@ -16,11 +16,11 @@ const createSubjectIntoDB = (student) => __awaiter(void 0, void 0, void 0, funct
     return res;
 });
 const getAllSubjectFromDB = () => __awaiter(void 0, void 0, void 0, function* () {
-    const res = yield subject_model_1.SubjectModel.find();
+    const res = yield subject_model_1.SubjectModel.find().populate("studentId");
     return res;
 });
 const getSingleSubjectFromDB = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const res = yield subject_model_1.SubjectModel.findOne({ _id: id });
+    const res = yield subject_model_1.SubjectModel.findOne({ _id: id }).populate("studentId");
     return res;
 });
 const deleteSubjectFromDB = (id) => __awaiter(void 0, void 0, void 0, function* () {

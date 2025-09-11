@@ -9,7 +9,11 @@ const subjectSchema = new Schema<TSubject>(
       unique: true,
     },
     language: { type: String, required: [true, "Language is required"] },
-    studentId: { type: String, required: [true, "Student id is required"] },
+    studentId: {
+      type: Schema.Types.ObjectId,
+      required: [true, "Student id is required"],
+      ref: "student",
+    },
   },
   {
     timestamps: true,

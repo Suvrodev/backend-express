@@ -7,12 +7,12 @@ const createSubjectIntoDB = async (student: TSubject) => {
 };
 
 const getAllSubjectFromDB = async () => {
-  const res = await SubjectModel.find();
+  const res = await SubjectModel.find().populate("studentId");
   return res;
 };
 
 const getSingleSubjectFromDB = async (id: string) => {
-  const res = await SubjectModel.findOne({ _id: id });
+  const res = await SubjectModel.findOne({ _id: id }).populate("studentId");
   return res;
 };
 

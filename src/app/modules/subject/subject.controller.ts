@@ -1,15 +1,15 @@
 import { Request, Response } from "express";
-import { subjectValidationSchemaByZod } from "./subject.validation";
 import { SubjectServices } from "./subject.service";
+import { subjectValidationSchema } from "./subject.validation";
 
 const createSubject = async (req: Request, res: Response) => {
   const subjectBody = req.body;
   // console.log("Studentt Data: ", studentData);
 
-  const zodParserData = subjectValidationSchemaByZod.parse(subjectBody);
+  //   const zodParserData = subjectValidationSchema.parse(subjectBody);
 
   try {
-    const result = await SubjectServices.createSubjectIntoDB(zodParserData);
+    const result = await SubjectServices.createSubjectIntoDB(subjectBody);
 
     res.status(200).json({
       success: true,

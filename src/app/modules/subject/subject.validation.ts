@@ -1,14 +1,11 @@
 import { z } from "zod";
 
-export const subjectValidationSchemaByZod = z
-  .object({
-    name: z.string().min(1, { message: "Subject Name is required by Zod" }),
+export const subjectValidationSchema = z.object({
+  name: z.string().min(1, { message: "Subject Name is required" }),
 
-    language: z.string().min(1, { message: "Language is required by Zod" }),
+  language: z.string().min(1, { message: "Language is required" }),
 
-    studentId: z.string().min(1, { message: "Student ID is required by Zod" }),
-  })
-  .strict();
-
-// Type infer from schema
-export type TSubjectInput = z.infer<typeof subjectValidationSchemaByZod>;
+  studentId: z
+    .string()
+    .regex(/^[0-9a-fA-F]{24}$/, { message: "Invalid student ID" }), // MongoDB ObjectId validation
+});

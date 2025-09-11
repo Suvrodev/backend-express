@@ -10,14 +10,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SubjectControllers = void 0;
-const subject_validation_1 = require("./subject.validation");
 const subject_service_1 = require("./subject.service");
 const createSubject = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const subjectBody = req.body;
     // console.log("Studentt Data: ", studentData);
-    const zodParserData = subject_validation_1.subjectValidationSchemaByZod.parse(subjectBody);
+    //   const zodParserData = subjectValidationSchema.parse(subjectBody);
     try {
-        const result = yield subject_service_1.SubjectServices.createSubjectIntoDB(zodParserData);
+        const result = yield subject_service_1.SubjectServices.createSubjectIntoDB(subjectBody);
         res.status(200).json({
             success: true,
             message: "Subject Created Successfully",
