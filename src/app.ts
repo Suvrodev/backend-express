@@ -4,8 +4,8 @@ import cors from "cors";
 import config from "./app/config";
 import { studentRoutes } from "./app/modules/students/student.route";
 import { subjectRoutes } from "./app/modules/subject/subject.route";
-import globalErrorHandler from "./app/modules/middleware/globalErrorHandler";
-import notFound from "./app/modules/middleware/notFound";
+import globalErrorHandler from "./app/middleware/globalErrorHandler";
+import notFound from "./app/middleware/notFound";
 import router from "./app/routes/routes";
 const app: Application = express();
 

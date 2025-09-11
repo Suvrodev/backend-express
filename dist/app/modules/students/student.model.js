@@ -16,6 +16,8 @@ exports.StudentModel = void 0;
 const mongoose_1 = require("mongoose");
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const config_1 = __importDefault(require("../../config"));
+const AppError_1 = __importDefault(require("../../Errors/AppError"));
+const http_status_1 = __importDefault(require("http-status"));
 const studentSchema = new mongoose_1.Schema({
     id: {
         type: Number,
@@ -80,7 +82,8 @@ studentSchema.pre("save", function (next) {
         const existingStudent = yield exports.StudentModel.findOne({ email: user.email });
         if (existingStudent) {
             // If found, stop saving by passing error
-            return next(new Error("Student with this email already exists"));
+            // return next(new AppError(400, "Student with this email already exists"));
+            return next(new AppError_1.default(http_status_1.default.BAD_REQUEST, "Student with this email already exists"));
         }
         next();
     });

@@ -7,8 +7,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const config_1 = __importDefault(require("./app/config"));
-const globalErrorHandler_1 = __importDefault(require("./app/modules/middleware/globalErrorHandler"));
-const notFound_1 = __importDefault(require("./app/modules/middleware/notFound"));
+const globalErrorHandler_1 = __importDefault(require("./app/middleware/globalErrorHandler"));
+const notFound_1 = __importDefault(require("./app/middleware/notFound"));
 const routes_1 = __importDefault(require("./app/routes/routes"));
 const app = (0, express_1.default)();
 //Perser For req.body - json

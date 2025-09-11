@@ -2,6 +2,8 @@ import { model, Schema } from "mongoose";
 import { MStudentModel, TStudent } from "./students.interface";
 import bcrypt from "bcrypt";
 import config from "../../config";
+import AppError from "../../Errors/AppError";
+import status from "http-status";
 const studentSchema = new Schema<TStudent, MStudentModel>(
   {
     id: {
@@ -73,7 +75,10 @@ studentSchema.pre("save", async function (next) {
   const existingStudent = await StudentModel.findOne({ email: user.email });
   if (existingStudent) {
     // If found, stop saving by passing error
-    return next(new Error("Student with this email already exists"));
+    // return next(new AppError(400, "Student with this email already exists"));
+    return next(
+      new AppError(status.BAD_REQUEST, "Student with this email already exists")
+    );
   }
   next();
 });
