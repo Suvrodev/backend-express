@@ -8,103 +8,61 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.studentControllers = void 0;
 const student_service_1 = require("./student.service");
 const student_validation_1 = require("./student.validation");
-const createStudent = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+const catchAsync_1 = __importDefault(require("../../utils/catchAsync"));
+const createStudent = (0, catchAsync_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const studentData = req.body;
     // console.log("Studentt Data: ", studentData);
     const zodParserData = student_validation_1.studentValidationSchemaByZod.parse(studentData);
-    try {
-        const result = yield student_service_1.studentServices.createStudentIntoDB(zodParserData);
-        res.status(200).json({
-            success: true,
-            message: "Student Created Successfully",
-            data: result,
-        });
-    }
-    catch (error) {
-        // res.status(500).json({
-        //   success: false,
-        //   message: error.message,
-        //   error: error,
-        // });
-        next(error);
-    }
-});
-const getAllStudent = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const result = yield student_service_1.studentServices.getAllStudentFromDB();
-        res.status(200).json({
-            success: true,
-            message: "Student Retrive Successfully",
-            data: result,
-        });
-    }
-    catch (error) {
-        res.status(500).json({
-            success: false,
-            message: error.message,
-            error: error,
-        });
-    }
-});
-const getSingleStudent = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const { email } = req.params;
-        const result = yield student_service_1.studentServices.getSingleStudentFromDB(email);
-        res.status(200).json({
-            success: true,
-            message: "Student Retrive Successfully",
-            data: result,
-        });
-    }
-    catch (error) {
-        res.status(500).json({
-            success: false,
-            message: error.message,
-            error: error,
-        });
-    }
-});
-const deleteStudent = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const { email } = req.params;
-        const result = yield student_service_1.studentServices.deleteStudentFromDB(email);
-        res.status(200).json({
-            success: true,
-            message: "Student Deleted Successfully",
-            data: result,
-        });
-    }
-    catch (error) {
-        res.status(500).json({
-            success: false,
-            message: error.message,
-            error: error,
-        });
-    }
-});
-const updateStudent = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const { email } = req.params;
-        const studentData = req.body;
-        const result = yield student_service_1.studentServices.updateStudentFromDB(email, studentData);
-        res.status(200).json({
-            success: true,
-            message: "Student Updated Successfully",
-            data: result,
-        });
-    }
-    catch (error) {
-        res.status(500).json({
-            success: false,
-            message: error.message,
-            error: error,
-        });
-    }
-});
+    const result = yield student_service_1.studentServices.createStudentIntoDB(zodParserData);
+    res.status(200).json({
+        success: true,
+        message: "Student Created Successfully",
+        data: result,
+    });
+}));
+const getAllStudent = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield student_service_1.studentServices.getAllStudentFromDB();
+    res.status(200).json({
+        success: true,
+        message: "Student Retrive Successfully",
+        data: result,
+    });
+}));
+const getSingleStudent = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { email } = req.params;
+    const result = yield student_service_1.studentServices.getSingleStudentFromDB(email);
+    res.status(200).json({
+        success: true,
+        message: "Student Retrive Successfully",
+        data: result,
+    });
+}));
+const deleteStudent = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { email } = req.params;
+    const result = yield student_service_1.studentServices.deleteStudentFromDB(email);
+    res.status(200).json({
+        success: true,
+        message: "Student Deleted Successfully",
+        data: result,
+    });
+}));
+const updateStudent = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { email } = req.params;
+    const studentData = req.body;
+    const result = yield student_service_1.studentServices.updateStudentFromDB(email, studentData);
+    res.status(200).json({
+        success: true,
+        message: "Student Updated Successfully",
+        data: result,
+    });
+}));
 exports.studentControllers = {
     createStudent,
     getAllStudent,
