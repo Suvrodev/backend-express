@@ -7,6 +7,7 @@ import { TErrorScources } from "../interface/error";
 import handleValidationError from "../Errors/handleValidationError";
 import handleCastError from "../Errors/handleCastError";
 import handleDuplicateError from "../Errors/handleDuplicateError";
+import AppError from "../Errors/AppError";
 
 const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
   //setting default values
@@ -20,7 +21,11 @@ const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
     },
   ];
 
-  ///Check Error Type
+  /**
+   * Handle Error
+   */
+
+  //Zod Error
   if (err instanceof ZodError) {
     const simplifiedError = handleZodError(err);
 
@@ -28,21 +33,38 @@ const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
     message = simplifiedError?.message;
     errorSources = simplifiedError?.errorSources;
     // console.log("Simplified error: ", simplifiedError);
-  } else if (err?.name === "ValidationError") {
+  }
+  //Mongoose validation error according to model
+  else if (err?.name === "ValidationError") {
     const simplifiedError = handleValidationError(err);
     statusCode = simplifiedError?.statusCode;
     message = simplifiedError?.message;
     errorSources = simplifiedError?.errorSources;
-  } else if (err?.name === "CastError") {
+  }
+  //Mongoose Cast error according to model (mainly used in get specific data by _id)
+  else if (err?.name === "CastError") {
     const simplifiedError = handleCastError(err);
     statusCode = simplifiedError?.statusCode;
     message = simplifiedError?.message;
     errorSources = simplifiedError?.errorSources;
-  } else if (err?.code === 11000) {
+  }
+  //duplicate id/email error
+  else if (err?.code === 11000) {
     const simplifiedError = handleDuplicateError(err);
     statusCode = simplifiedError?.statusCode;
     message = simplifiedError?.message;
     errorSources = simplifiedError?.errorSources;
+  }
+  //Error of Our App Error
+  else if (err instanceof AppError) {
+    statusCode = err?.statusCode;
+    message = err.message;
+    errorSources = [
+      {
+        path: "",
+        message: err?.message,
+      },
+    ];
   }
 
   res.status(statusCode).json({
