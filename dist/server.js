@@ -23,7 +23,8 @@ function main() {
             // const DB_URL = process.env.DATABASE_URL as string;
             yield mongoose_1.default.connect(config_1.default.database_url);
             server = app_1.default.listen(config_1.default.port, () => {
-                console.log(`Back end is listening on port ${config_1.default.database_url}`);
+                // console.log(`Back end is listening on port ${config.database_url}`);
+                console.log("\x1b[34m%s\x1b[0m", `🔵 Back end is listening on port ${config_1.default.database_url}`);
             });
         }
         catch (error) {

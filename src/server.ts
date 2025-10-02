@@ -13,7 +13,11 @@ async function main() {
     await mongoose.connect(config.database_url as string);
 
     server = app.listen(config.port, () => {
-      console.log(`Back end is listening on port ${config.database_url}`);
+      // console.log(`Back end is listening on port ${config.database_url}`);
+      console.log(
+        "\x1b[34m%s\x1b[0m",
+        `🔵 Back end is listening on port ${config.database_url}`
+      );
     });
   } catch (error) {
     console.log("Error in server: ", error);
