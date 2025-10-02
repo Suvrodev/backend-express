@@ -17,7 +17,7 @@
     "http-status": "^2.1.0",
     "mongoose": "^8.17.1",
     "nodemon": "^3.1.10",
-    "zod": "^4.0.17"
+    "zod": "^4.1.11"
   },
   "devDependencies": {
     "@types/bcrypt": "^6.0.0",

@@ -16,15 +16,13 @@ exports.StudentModel = void 0;
 const mongoose_1 = require("mongoose");
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const config_1 = __importDefault(require("../../config"));
-const AppError_1 = __importDefault(require("../../Errors/AppError"));
-const http_status_1 = __importDefault(require("http-status"));
 const studentSchema = new mongoose_1.Schema({
     id: {
         type: Number,
         required: [true, "Student ID is required"],
         unique: true,
     },
-    name: { type: String, required: [true, "Student name is required"] },
+    name: { type: String },
     taka: { type: Number, required: [true, "Taka is required"] },
     image: { type: String, required: [true, "Student image is required"] },
     email: {
@@ -75,19 +73,20 @@ studentSchema.pre("save", function (next) {
         next();
     });
 });
-studentSchema.pre("save", function (next) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const user = this;
-        const email = user.email;
-        const existingStudent = yield exports.StudentModel.findOne({ email: user.email });
-        if (existingStudent) {
-            // If found, stop saving by passing error
-            // return next(new AppError(400, "Student with this email already exists"));
-            return next(new AppError_1.default(http_status_1.default.BAD_REQUEST, "Student with this email already exists"));
-        }
-        next();
-    });
-});
+// studentSchema.pre("save", async function (next) {
+//   const user = this as TStudent;
+//   const email = user.email;
+//   const existingStudent = await StudentModel.findOne({ email: user.email });
+//   if (existingStudent) {
+//     return next(
+//       new AppError(
+//         status.BAD_REQUEST,
+//         "Student with this email already exists (check from middleware)"
+//       )
+//     );
+//   }
+//   next();
+// });
 studentSchema.post("save", function (doc, next) {
     // console.log("Post Hook: We saved Our Data");
     doc.password = "";

@@ -25,7 +25,9 @@ export const studentValidationSchemaByZod = z
         message: "Student ID is required by Zod",
       }),
 
-    name: z.string().min(1, { message: "Student name is required by Zod" }),
+    name: z
+      .string()
+      .min(2, { message: "Student name is required by Zod (min2)" }),
     taka: z.number().min(1, { message: "Taka is required by Zod" }),
 
     image: z.string().url({ message: "Image must be a valid URL by Zod" }),
@@ -43,7 +45,7 @@ export const studentValidationSchemaByZod = z
     age: z
       .number()
       .int()
-      .min(0, { message: "Age must be at least 0 by Zod" })
+      .min(5, { message: "Age must be at least 5 by Zod" })
       .max(150, { message: "Age must be at most 150 by Zod" }),
 
     bloodGroup: BloodGroupEnum,
