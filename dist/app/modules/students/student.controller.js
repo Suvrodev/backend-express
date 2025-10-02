@@ -14,13 +14,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.studentControllers = void 0;
 const student_service_1 = require("./student.service");
-const student_validation_1 = require("./student.validation");
 const catchAsync_1 = __importDefault(require("../../utils/catchAsync"));
 const createStudent = (0, catchAsync_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const studentData = req.body;
     // console.log("Studentt Data: ", studentData);
-    const zodParserData = student_validation_1.studentValidationSchemaByZod.parse(studentData);
-    const result = yield student_service_1.studentServices.createStudentIntoDB(zodParserData);
+    // const zodParserData = studentValidationSchemaByZod.parse(studentData);
+    // const result = await studentServices.createStudentIntoDB(zodParserData);
+    const result = yield student_service_1.studentServices.createStudentIntoDB(studentData);
     res.status(200).json({
         success: true,
         message: "Student Created Successfully",

@@ -3,6 +3,7 @@ import { status } from "http-status";
 import { ZodError, ZodIssue } from "zod";
 import { TErrorScource } from "../interface/error";
 import config from "../config";
+import handleZodError from "../Errors/handleZodError";
 
 const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
   //setting default values
@@ -16,27 +17,7 @@ const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
     },
   ];
 
-  //Check zod error or not
-  /**
-   * Make Handler
-   */
-
-  const handleZodError = (err: ZodError) => {
-    const errorSources: TErrorScource = err.issues.map((issue: ZodIssue) => {
-      return {
-        path: issue?.path[issue.path.length - 1],
-        message: issue.message,
-      };
-    });
-    statusCode = 400;
-
-    return {
-      statusCode,
-      // message: "Zod Validation error", because ami kon library use korchi bolbo na
-      message: "Validation error",
-      errorSources,
-    };
-  };
+  ///Check Error Type
   if (err instanceof ZodError) {
     const simplifiedError = handleZodError(err);
 

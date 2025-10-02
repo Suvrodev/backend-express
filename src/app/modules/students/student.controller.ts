@@ -7,9 +7,10 @@ const createStudent = catchAsync(async (req, res, next) => {
   const studentData = req.body;
   // console.log("Studentt Data: ", studentData);
 
-  const zodParserData = studentValidationSchemaByZod.parse(studentData);
+  // const zodParserData = studentValidationSchemaByZod.parse(studentData);
 
-  const result = await studentServices.createStudentIntoDB(zodParserData);
+  // const result = await studentServices.createStudentIntoDB(zodParserData);
+  const result = await studentServices.createStudentIntoDB(studentData);
 
   res.status(200).json({
     success: true,

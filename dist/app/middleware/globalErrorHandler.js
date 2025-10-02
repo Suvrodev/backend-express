@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const http_status_1 = require("http-status");
 const zod_1 = require("zod");
 const config_1 = __importDefault(require("../config"));
+const handleZodError_1 = __importDefault(require("../Errors/handleZodError"));
 const globalErrorHandler = (err, req, res, next) => {
     //setting default values
     let statusCode = err.statusCode || http_status_1.status.INTERNAL_SERVER_ERROR;
@@ -16,27 +17,9 @@ const globalErrorHandler = (err, req, res, next) => {
             message: "Something went wrong from error souces",
         },
     ];
-    //Check zod error or not
-    /**
-     * Make Handler
-     */
-    const handleZodError = (err) => {
-        const errorSources = err.issues.map((issue) => {
-            return {
-                path: issue === null || issue === void 0 ? void 0 : issue.path[issue.path.length - 1],
-                message: issue.message,
-            };
-        });
-        statusCode = 400;
-        return {
-            statusCode,
-            // message: "Zod Validation error", because ami kon library use korchi bolbo na
-            message: "Validation error",
-            errorSources,
-        };
-    };
+    ///Check Error Type
     if (err instanceof zod_1.ZodError) {
-        const simplifiedError = handleZodError(err);
+        const simplifiedError = (0, handleZodError_1.default)(err);
         statusCode = simplifiedError === null || simplifiedError === void 0 ? void 0 : simplifiedError.statusCode;
         message = simplifiedError === null || simplifiedError === void 0 ? void 0 : simplifiedError.message;
         errorSources = simplifiedError === null || simplifiedError === void 0 ? void 0 : simplifiedError.errorSources;
