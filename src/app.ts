@@ -8,8 +8,7 @@ import express, {
 } from "express";
 import cors from "cors";
 import config from "./app/config";
-import { studentRoutes } from "./app/modules/students/student.route";
-import { subjectRoutes } from "./app/modules/subject/subject.route";
+
 import globalErrorHandler from "./app/middleware/globalErrorHandler";
 import notFound from "./app/middleware/notFound";
 import router from "./app/routes/routes";

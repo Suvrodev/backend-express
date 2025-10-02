@@ -21,12 +21,22 @@ async function main() {
 }
 main();
 
-process.on("unhandledRejection", () => {
+///Unhandle Rejection
+process.on("unhandledRejection", (reason, promise) => {
+  console.error("🚨 Unhandled Rejection detected:", reason);
+  console.error("Promise was:", promise);
   console.log("😡😡 Unhandle rejection is detected, shutting down...");
+
   if (server) {
     server.close(() => {
       process.exit(1);
     });
   }
+  process.exit(1);
+});
+
+//uncought exception
+process.on("uncaughtException", (err) => {
+  console.error("💥 Uncaught Exception detected:", err);
   process.exit(1);
 });
