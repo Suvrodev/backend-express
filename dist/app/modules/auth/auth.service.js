@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthServices = void 0;
 const AppError_1 = __importDefault(require("../../Errors/AppError"));
+const accessToken_1 = require("../../middleware/accessToken");
 const checkDeleted_1 = require("../user/userFunction/checkDeleted");
 const checkNotExists_1 = require("../user/userFunction/checkNotExists");
 const loginUser = (payload) => __awaiter(void 0, void 0, void 0, function* () {
@@ -35,24 +36,9 @@ const loginUser = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     if ((payload === null || payload === void 0 ? void 0 : payload.password) !== (isUserExists === null || isUserExists === void 0 ? void 0 : isUserExists.password)) {
         throw new AppError_1.default(401, "Password is Incorrect");
     }
-    // console.log("is User exists----: ", isUserExists);
-    //Create Token and send to the client
-    //   const jwtPayload = {
-    //     _id: isUserExists._id,
-    //     firstName: isUserExists?.firstName,
-    //     lastName: isUserExists?.lastName,
-    //     email: isUserExists?.email,
-    //     role: isUserExists?.role,
-    //     isBlocked: isUserExists?.isBlocked,
-    //     phone: isUserExists?.phone,
-    //     image: isUserExists?.image,
-    //   };
-    //   const accessToken = Jwt.sign(jwtPayload, config.jwt_access_token as string, {
-    //     expiresIn: "30d",
-    //   });
-    //   console.log("JwtPayload: ", jwtPayload);
+    const accessToken = (0, accessToken_1.getAccessToken)(isUserExists);
+    console.log("Access Token: ", accessToken);
     //Access Granted: Send AccessToken, Refresh Token
-    const accessToken = "";
     return {
         accessToken,
     };

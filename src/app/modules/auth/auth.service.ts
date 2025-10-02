@@ -1,8 +1,12 @@
+import config from "../../config";
 import AppError from "../../Errors/AppError";
+import { getAccessToken } from "../../middleware/accessToken";
 import { UserModel } from "../user/user.model";
 import { checkDeleted } from "../user/userFunction/checkDeleted";
 import { checkNotExists } from "../user/userFunction/checkNotExists";
 import { TLoginUser } from "./auth.interface";
+// import Jwt from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 
 const loginUser = async (payload: TLoginUser) => {
   console.log("============================");
@@ -28,25 +32,10 @@ const loginUser = async (payload: TLoginUser) => {
     throw new AppError(401, "Password is Incorrect");
   }
 
-  // console.log("is User exists----: ", isUserExists);
-  //Create Token and send to the client
-  //   const jwtPayload = {
-  //     _id: isUserExists._id,
-  //     firstName: isUserExists?.firstName,
-  //     lastName: isUserExists?.lastName,
-  //     email: isUserExists?.email,
-  //     role: isUserExists?.role,
-  //     isBlocked: isUserExists?.isBlocked,
-  //     phone: isUserExists?.phone,
-  //     image: isUserExists?.image,
-  //   };
-  //   const accessToken = Jwt.sign(jwtPayload, config.jwt_access_token as string, {
-  //     expiresIn: "30d",
-  //   });
-  //   console.log("JwtPayload: ", jwtPayload);
+  const accessToken = getAccessToken(isUserExists);
+  console.log("Access Token: ", accessToken);
   //Access Granted: Send AccessToken, Refresh Token
 
-  const accessToken = "";
   return {
     accessToken,
   };
