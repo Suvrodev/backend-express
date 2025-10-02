@@ -1,16 +1,13 @@
 import { ErrorRequestHandler, NextFunction, Request, Response } from "express";
 import { status } from "http-status";
-import { ZodError } from "zod";
+import { ZodError, ZodIssue } from "zod";
+import { TErrorScource } from "../interface/error";
+import config from "../config";
 
 const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
   //setting default values
   let statusCode = err.statusCode || status.INTERNAL_SERVER_ERROR;
   let message = err.message || "Something went wrong";
-
-  type TErrorScource = {
-    path: string | number;
-    message: string;
-  }[];
 
   let errorSources: TErrorScource = [
     {
@@ -20,16 +17,41 @@ const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
   ];
 
   //Check zod error or not
-  if (err instanceof ZodError) {
+  /**
+   * Make Handler
+   */
+
+  const handleZodError = (err: ZodError) => {
+    const errorSources: TErrorScource = err.issues.map((issue: ZodIssue) => {
+      return {
+        path: issue?.path[issue.path.length - 1],
+        message: issue.message,
+      };
+    });
     statusCode = 400;
-    message = "Fuck Fucku fuck fuck by zod";
+
+    return {
+      statusCode,
+      // message: "Zod Validation error", because ami kon library use korchi bolbo na
+      message: "Validation error",
+      errorSources,
+    };
+  };
+  if (err instanceof ZodError) {
+    const simplifiedError = handleZodError(err);
+
+    statusCode = simplifiedError?.statusCode;
+    message = simplifiedError?.message;
+    errorSources = simplifiedError?.errorSources;
+    // console.log("Simplified error: ", simplifiedError);
   }
 
   res.status(statusCode).json({
     success: false,
     message,
     errorSources,
-    err: err,
+    stack: config.node_env === "development" ? err?.stack : null,
+    previousError: err,
   });
 };
 
