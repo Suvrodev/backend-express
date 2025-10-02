@@ -7,6 +7,7 @@ const http_status_1 = require("http-status");
 const zod_1 = require("zod");
 const config_1 = __importDefault(require("../config"));
 const handleZodError_1 = __importDefault(require("../Errors/handleZodError"));
+const validationError_1 = __importDefault(require("../Errors/validationError"));
 const globalErrorHandler = (err, req, res, next) => {
     //setting default values
     let statusCode = err.statusCode || http_status_1.status.INTERNAL_SERVER_ERROR;
@@ -24,6 +25,12 @@ const globalErrorHandler = (err, req, res, next) => {
         message = simplifiedError === null || simplifiedError === void 0 ? void 0 : simplifiedError.message;
         errorSources = simplifiedError === null || simplifiedError === void 0 ? void 0 : simplifiedError.errorSources;
         // console.log("Simplified error: ", simplifiedError);
+    }
+    else if ((err === null || err === void 0 ? void 0 : err.name) === "ValidationError") {
+        const simplifiedError = (0, validationError_1.default)(err);
+        statusCode = simplifiedError === null || simplifiedError === void 0 ? void 0 : simplifiedError.statusCode;
+        message = simplifiedError === null || simplifiedError === void 0 ? void 0 : simplifiedError.message;
+        errorSources = simplifiedError === null || simplifiedError === void 0 ? void 0 : simplifiedError.errorSources;
     }
     res.status(statusCode).json({
         success: false,

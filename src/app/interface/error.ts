@@ -1,4 +1,4 @@
-export type TErrorScource = {
+export type TErrorScources = {
   path: string | number;
   message: string;
 }[];
