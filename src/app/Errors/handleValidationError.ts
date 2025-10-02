@@ -1,7 +1,9 @@
 import mongoose from "mongoose";
-import { TErrorScources } from "../interface/error";
+import { TErrorScources, TGenericErrorResponse } from "../interface/error";
 
-const handleValidationError = (err: mongoose.Error.ValidationError) => {
+const handleValidationError = (
+  err: mongoose.Error.ValidationError
+): TGenericErrorResponse => {
   const errorSources: TErrorScources = Object.values(err.errors).map(
     (val: mongoose.Error.ValidatorError | mongoose.Error.CastError) => {
       return {
@@ -12,6 +14,7 @@ const handleValidationError = (err: mongoose.Error.ValidationError) => {
   );
 
   const statusCode = 400;
+  const heyError = "Tomake ki send kote parbo?";
   return {
     statusCode,
     // message: "Zod Validation error", because ami kon library use korchi bolbo na

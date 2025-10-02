@@ -4,7 +4,8 @@ import { ZodError, ZodIssue } from "zod";
 import config from "../config";
 import handleZodError from "../Errors/handleZodError";
 import { TErrorScources } from "../interface/error";
-import handleValidationError from "../Errors/validationError";
+import handleValidationError from "../Errors/handleValidationError";
+import handleCastError from "../Errors/handleCastError";
 
 const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
   //setting default values
@@ -28,6 +29,11 @@ const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
     // console.log("Simplified error: ", simplifiedError);
   } else if (err?.name === "ValidationError") {
     const simplifiedError = handleValidationError(err);
+    statusCode = simplifiedError?.statusCode;
+    message = simplifiedError?.message;
+    errorSources = simplifiedError?.errorSources;
+  } else if (err?.name === "CastError") {
+    const simplifiedError = handleCastError(err);
     statusCode = simplifiedError?.statusCode;
     message = simplifiedError?.message;
     errorSources = simplifiedError?.errorSources;
