@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthServices = void 0;
 const AppError_1 = __importDefault(require("../../Errors/AppError"));
-const accessToken_1 = require("../../middleware/accessToken");
+const accessToken_1 = require("../../middleware/auth/accessToken");
 const checkDeleted_1 = require("../user/userFunction/checkDeleted");
 const checkNotExists_1 = require("../user/userFunction/checkNotExists");
 const loginUser = (payload) => __awaiter(void 0, void 0, void 0, function* () {

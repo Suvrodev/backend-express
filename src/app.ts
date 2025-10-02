@@ -27,6 +27,9 @@ app.get("/", (req: Request, res: Response) => {
   });
 });
 
+/**
+ *  This unhandle rejection is only for check
+ */
 // unhandle rejection
 const unhandleRejection: RequestHandler = async (req, res) => {
   Promise.reject();

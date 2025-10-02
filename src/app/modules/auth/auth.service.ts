@@ -1,6 +1,6 @@
 import config from "../../config";
 import AppError from "../../Errors/AppError";
-import { getAccessToken } from "../../middleware/accessToken";
+import { getAccessToken } from "../../middleware/auth/accessToken";
 import { UserModel } from "../user/user.model";
 import { checkDeleted } from "../user/userFunction/checkDeleted";
 import { checkNotExists } from "../user/userFunction/checkNotExists";

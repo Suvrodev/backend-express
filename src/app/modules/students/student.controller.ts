@@ -20,6 +20,7 @@ const createStudent = catchAsync(async (req, res, next) => {
 });
 
 const getAllStudent = catchAsync(async (req, res) => {
+  console.log("req te user check: ", req?.user?.email);
   const result = await studentServices.getAllStudentFromDB();
   res.status(200).json({
     success: true,

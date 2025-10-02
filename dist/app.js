@@ -30,6 +30,9 @@ app.get("/", (req, res) => {
         message: `This back end is Listening is on port ${config_1.default.port}`,
     });
 });
+/**
+ *  This unhandle rejection is only for check
+ */
 // unhandle rejection
 const unhandleRejection = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     Promise.reject();

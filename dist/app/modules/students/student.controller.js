@@ -28,6 +28,8 @@ const createStudent = (0, catchAsync_1.default)((req, res, next) => __awaiter(vo
     });
 }));
 const getAllStudent = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
+    console.log("req te user check: ", (_a = req === null || req === void 0 ? void 0 : req.user) === null || _a === void 0 ? void 0 : _a.email);
     const result = yield student_service_1.studentServices.getAllStudentFromDB();
     res.status(200).json({
         success: true,

@@ -1,21 +1,34 @@
+Block and delete student asbe na  ---------------------
+Delete and Update ----------------------------
+Roll back -------------------
+Populate-----------------------
+Route------------------------
+Route not found----------------------
+App Error--------------------------
+Global Error------------------------ ( module: 14)
+app er bhitor error solve (uncought exception- unhandle rejection)-------------
+validator request (12-3)-------------------------
+Access token---------------------------
+Password---------------------------
+CatchAsyncFunction--------------------------------
+Delete student asbe na by instance------------------------
+By Static-------------------------
+Delete student asbe na and user already exists by middleware------------------------
+send email
+Image upload
+Check User or admin in route (header)
+d.ts
+check role from header
+Refresh token
+get access token by refresh token
+check origin--------------------------
+super admin
 
-  1. Block and delete student asbe na ---------------------
-  2. Delete and Update ----------------------------
-  3. Roll back -------------------
-  4. Populate-----------------------
-  5. Route------------------------
-  6. ROute not found----------------------
-  7. App Error--------------------------
-  8. Global Error
-  9. send email
-  10. Image
-  11. Refresh token
-  12. Access token
-  13.Password---------------------------
-  14. CatchAsyncFunction--------------------------------
-  15. Delete student asbe na by instance------------------------
-  16. By Static-------------------------
-  17. Delete student asbe na and user already exists by middleware------------------------
-  18. Check User or admin in route (header)
-  19. app er bhitor error solve (uncought exception- unhandle rejection)
-  20. super admin
+
+
+
+
+check:
+1. check access token
+2. with expire date
+3. cookies
