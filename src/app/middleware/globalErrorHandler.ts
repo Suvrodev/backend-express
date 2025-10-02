@@ -61,7 +61,17 @@ const globalErrorHandler: ErrorRequestHandler = (err, req, res, next) => {
     message = err.message;
     errorSources = [
       {
-        path: "",
+        path: "no Path in App error",
+        message: err?.message,
+      },
+    ];
+  }
+  //Error of Error
+  else if (err instanceof Error) {
+    message = err.message;
+    errorSources = [
+      {
+        path: "no Path in error",
         message: err?.message,
       },
     ];
