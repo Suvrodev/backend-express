@@ -20,3 +20,5 @@ export const getAccessToken = (user: any) => {
   console.log("JwtPayload: ", jwtPayload);
   return accessToken;
 };
+
+require("crypto").randomBytes(64).toString("hex");

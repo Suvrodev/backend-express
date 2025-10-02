@@ -21,3 +21,4 @@ const getAccessToken = (user) => {
     return accessToken;
 };
 exports.getAccessToken = getAccessToken;
+require("crypto").randomBytes(64).toString("hex");
