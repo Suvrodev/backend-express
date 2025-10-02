@@ -17,5 +17,5 @@
   16. By Static-------------------------
   17. Delete student asbe na and user already exists by middleware------------------------
   18. Check User or admin in route (header)
-  19. app er bhitor error solve
+  19. app er bhitor error solve (uncought exception- unhandle rejection)
   20. super admin

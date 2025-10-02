@@ -1,5 +1,11 @@
 // const express = require('express')
-import express, { Application, NextFunction, Request, Response } from "express";
+import express, {
+  Application,
+  NextFunction,
+  Request,
+  RequestHandler,
+  Response,
+} from "express";
 import cors from "cors";
 import config from "./app/config";
 import { studentRoutes } from "./app/modules/students/student.route";
@@ -21,6 +27,13 @@ app.get("/", (req: Request, res: Response) => {
     message: `This back end is Listening is on port ${config.port}`,
   });
 });
+
+// unhandle rejection
+const unhandleRejection: RequestHandler = async (req, res) => {
+  Promise.reject();
+};
+
+app.get("/uh", unhandleRejection);
 
 app.use(globalErrorHandler);
 app.use(notFound);

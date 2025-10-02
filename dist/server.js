@@ -15,13 +15,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
 const app_1 = __importDefault(require("./app"));
 const config_1 = __importDefault(require("./app/config"));
+let server;
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             // const PORT = Number(process.env.PORT) || 7000;
             // const DB_URL = process.env.DATABASE_URL as string;
             yield mongoose_1.default.connect(config_1.default.database_url);
-            app_1.default.listen(config_1.default.port, () => {
+            server = app_1.default.listen(config_1.default.port, () => {
                 console.log(`Back end is listening on port ${config_1.default.database_url}`);
             });
         }
@@ -31,3 +32,12 @@ function main() {
     });
 }
 main();
+process.on("unhandledRejection", () => {
+    console.log("😡😡 Unhandle rejection is detected, shutting down...");
+    if (server) {
+        server.close(() => {
+            process.exit(1);
+        });
+    }
+    process.exit(1);
+});
