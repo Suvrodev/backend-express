@@ -3,9 +3,17 @@ import { StudentModel } from "../students/student.model";
 import AppError from "../../Errors/AppError";
 import { TUser } from "./user.interface";
 import { UserModel } from "./user.model";
+import { checkExistUser } from "./userFunction/checkExistUser";
 
 const registrationUserIntoDB = async (user: TUser) => {
   console.log("User in service reg: ", user);
+
+  const userExistance = await checkExistUser(user.email);
+  console.log("User existance: ", userExistance);
+
+  if (userExistance) {
+    throw new AppError(409, "User ALready Exists");
+  }
   const res = await UserModel.create(user);
   return res;
 };
