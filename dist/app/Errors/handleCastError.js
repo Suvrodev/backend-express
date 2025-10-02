@@ -10,7 +10,7 @@ const handleCastError = (err) => {
     const statusCode = 400;
     return {
         statusCode,
-        message: "Validation error (cast)",
+        message: "Invalid ID",
         errorSources,
     };
 };

@@ -9,6 +9,7 @@ const config_1 = __importDefault(require("../config"));
 const handleZodError_1 = __importDefault(require("../Errors/handleZodError"));
 const handleValidationError_1 = __importDefault(require("../Errors/handleValidationError"));
 const handleCastError_1 = __importDefault(require("../Errors/handleCastError"));
+const handleDuplicateError_1 = __importDefault(require("../Errors/handleDuplicateError"));
 const globalErrorHandler = (err, req, res, next) => {
     //setting default values
     let statusCode = err.statusCode || http_status_1.status.INTERNAL_SERVER_ERROR;
@@ -35,6 +36,12 @@ const globalErrorHandler = (err, req, res, next) => {
     }
     else if ((err === null || err === void 0 ? void 0 : err.name) === "CastError") {
         const simplifiedError = (0, handleCastError_1.default)(err);
+        statusCode = simplifiedError === null || simplifiedError === void 0 ? void 0 : simplifiedError.statusCode;
+        message = simplifiedError === null || simplifiedError === void 0 ? void 0 : simplifiedError.message;
+        errorSources = simplifiedError === null || simplifiedError === void 0 ? void 0 : simplifiedError.errorSources;
+    }
+    else if ((err === null || err === void 0 ? void 0 : err.code) === 11000) {
+        const simplifiedError = (0, handleDuplicateError_1.default)(err);
         statusCode = simplifiedError === null || simplifiedError === void 0 ? void 0 : simplifiedError.statusCode;
         message = simplifiedError === null || simplifiedError === void 0 ? void 0 : simplifiedError.message;
         errorSources = simplifiedError === null || simplifiedError === void 0 ? void 0 : simplifiedError.errorSources;
