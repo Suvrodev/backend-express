@@ -3,17 +3,16 @@ import { StudentModel } from "../students/student.model";
 import AppError from "../../Errors/AppError";
 import { TUser } from "./user.interface";
 import { UserModel } from "./user.model";
-import { checkExistUser } from "./userFunction/checkExistUser";
+import { checkUserDeleteOrNot } from "./userFunction/checkUserDeleteOrNot";
+import { NotExistsOrDeleted } from "./userFunction/NotExistsOrDeleted";
+import { checkNotExists } from "./userFunction/checkNotExists";
+import { checkExists } from "./userFunction/checkExists";
 
 const registrationUserIntoDB = async (user: TUser) => {
   console.log("User in service reg: ", user);
 
-  const userExistance = await checkExistUser(user.email);
-  console.log("User existance: ", userExistance);
+  const userExistance = await checkExists(user.email);
 
-  if (userExistance) {
-    throw new AppError(409, "User ALready Exists");
-  }
   const res = await UserModel.create(user);
   return res;
 };
@@ -30,6 +29,8 @@ const getSingleUserFromDB = async (email: string) => {
 };
 
 const deleteUserFromDB = async (email: string) => {
+  const existsRes = await checkNotExists(email);
+
   const res = await UserModel.findOneAndUpdate(
     { email: email },
     { isDeleted: true },
@@ -39,9 +40,12 @@ const deleteUserFromDB = async (email: string) => {
     }
   );
 };
-const updateUserFromDB = async (id: string, userData: Partial<TUser>) => {
+const updateUserFromDB = async (email: string, userData: Partial<TUser>) => {
+  const deleteOrNotExistsRes = await NotExistsOrDeleted(email);
+  console.log("deleteOrNotExistsRes:  ", deleteOrNotExistsRes);
+
   const res = await UserModel.findOneAndUpdate(
-    { _id: id },
+    { email: email },
     { $set: userData },
     {
       new: true,

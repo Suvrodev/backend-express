@@ -6,7 +6,6 @@ const userSchema = new mongoose_1.Schema({
     name: {
         type: String,
         required: [true, "User Name is required"],
-        unique: true,
     },
     email: {
         type: String,
@@ -27,5 +26,10 @@ const userSchema = new mongoose_1.Schema({
 }, {
     timestamps: true,
     strict: "throw",
+});
+//Query Middlware
+userSchema.pre("find", function (next) {
+    this.find({ isDeleted: false });
+    next();
 });
 exports.UserModel = (0, mongoose_1.model)("user", userSchema);

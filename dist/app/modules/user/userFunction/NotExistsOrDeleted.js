@@ -8,9 +8,21 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.NotExistsOrDeleted = void 0;
+const AppError_1 = __importDefault(require("../../../Errors/AppError"));
 const user_model_1 = require("../user.model");
-const checkUserExistsOrNot = (email) => __awaiter(void 0, void 0, void 0, function* () {
-    const res = yield user_model_1.UserModel.findOne({ email: email });
-    return res;
+const NotExistsOrDeleted = (email) => __awaiter(void 0, void 0, void 0, function* () {
+    const userRes = yield user_model_1.UserModel.findOne({ email: email });
+    console.log("user res: ", userRes);
+    if (!userRes) {
+        throw new AppError_1.default(404, "User is not exists");
+    }
+    if (userRes === null || userRes === void 0 ? void 0 : userRes.isDeleted) {
+        throw new AppError_1.default(409, "User already deleted");
+    }
 });
+exports.NotExistsOrDeleted = NotExistsOrDeleted;

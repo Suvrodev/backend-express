@@ -10,6 +10,6 @@ const router = express_1.default.Router();
 router.post("/reg", user_controller_1.UserControllers.registrationUser);
 router.get("/", user_controller_1.UserControllers.getAllUser);
 router.get("/:email", user_controller_1.UserControllers.getSingleUser);
-router.delete("/:email", user_controller_1.UserControllers.deleteUser);
+router.put("/:email", user_controller_1.UserControllers.deleteUser);
 router.patch("/:email", user_controller_1.UserControllers.updateUser);
 exports.UserRoutes = router;

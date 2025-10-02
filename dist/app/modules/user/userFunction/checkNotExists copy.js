@@ -9,8 +9,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.checkNotExists = void 0;
 const user_model_1 = require("../user.model");
-const checkUserExistsOrNot = (email) => __awaiter(void 0, void 0, void 0, function* () {
+const checkNotExists = (email) => __awaiter(void 0, void 0, void 0, function* () {
     const res = yield user_model_1.UserModel.findOne({ email: email });
+    console.log("Fucking res: ", res);
     return res;
 });
+exports.checkNotExists = checkNotExists;

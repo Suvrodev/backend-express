@@ -6,7 +6,6 @@ const userSchema = new Schema<TUser>(
     name: {
       type: String,
       required: [true, "User Name is required"],
-      unique: true,
     },
     email: {
       type: String,
@@ -30,5 +29,11 @@ const userSchema = new Schema<TUser>(
     strict: "throw",
   }
 );
+
+//Query Middlware
+userSchema.pre("find", function (next) {
+  this.find({ isDeleted: false });
+  next();
+});
 
 export const UserModel = model<TUser>("user", userSchema);

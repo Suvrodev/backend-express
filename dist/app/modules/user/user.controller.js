@@ -20,7 +20,7 @@ const registrationUser = (0, catchAsync_1.default)((req, res, next) => __awaiter
     const result = yield user_service_1.UserServices.registrationUserIntoDB(userData);
     res.status(200).json({
         success: true,
-        message: "USer Registratiob Successfully",
+        message: "User Registration Successfully",
         data: result,
     });
 }));

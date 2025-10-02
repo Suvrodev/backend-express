@@ -9,8 +9,19 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.checkUserDeleteOrNot = void 0;
 const user_model_1 = require("../user.model");
-const checkUserExistsOrNot = (email) => __awaiter(void 0, void 0, void 0, function* () {
-    const res = yield user_model_1.UserModel.findOne({ email: email });
-    return res;
+const checkUserDeleteOrNot = (email) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const user = yield user_model_1.UserModel.findOne({ email });
+        if (user && user.isDeleted) {
+            return true; // user আছে কিন্তু delete করা হয়েছে
+        }
+        return false; // user নাই বা আছে কিন্তু active
+    }
+    catch (error) {
+        console.error("Error checking existing user:", error);
+        throw error;
+    }
 });
+exports.checkUserDeleteOrNot = checkUserDeleteOrNot;

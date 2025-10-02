@@ -8,21 +8,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserServices = void 0;
-const AppError_1 = __importDefault(require("../../Errors/AppError"));
 const user_model_1 = require("./user.model");
-const checkExistUser_1 = require("./userFunction/checkExistUser");
+const NotExistsOrDeleted_1 = require("./userFunction/NotExistsOrDeleted");
+const checkNotExists_1 = require("./userFunction/checkNotExists");
+const checkExists_1 = require("./userFunction/checkExists");
 const registrationUserIntoDB = (user) => __awaiter(void 0, void 0, void 0, function* () {
     console.log("User in service reg: ", user);
-    const userExistance = yield (0, checkExistUser_1.checkExistUser)(user.email);
-    console.log("User existance: ", userExistance);
-    if (userExistance) {
-        throw new AppError_1.default(409, "User ALready Exists");
-    }
+    const userExistance = yield (0, checkExists_1.checkExists)(user.email);
     const res = yield user_model_1.UserModel.create(user);
     return res;
 });
@@ -36,13 +30,16 @@ const getSingleUserFromDB = (email) => __awaiter(void 0, void 0, void 0, functio
     return res;
 });
 const deleteUserFromDB = (email) => __awaiter(void 0, void 0, void 0, function* () {
+    const existsRes = yield (0, checkNotExists_1.checkNotExists)(email);
     const res = yield user_model_1.UserModel.findOneAndUpdate({ email: email }, { isDeleted: true }, {
         new: true,
         runValidators: true, //Model er role use korbe
     });
 });
-const updateUserFromDB = (id, userData) => __awaiter(void 0, void 0, void 0, function* () {
-    const res = yield user_model_1.UserModel.findOneAndUpdate({ _id: id }, { $set: userData }, {
+const updateUserFromDB = (email, userData) => __awaiter(void 0, void 0, void 0, function* () {
+    const deleteOrNotExistsRes = yield (0, NotExistsOrDeleted_1.NotExistsOrDeleted)(email);
+    console.log("deleteOrNotExistsRes:  ", deleteOrNotExistsRes);
+    const res = yield user_model_1.UserModel.findOneAndUpdate({ email: email }, { $set: userData }, {
         new: true,
         runValidators: true, //Model er role use korbe
     });
