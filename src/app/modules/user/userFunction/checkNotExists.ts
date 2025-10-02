@@ -2,7 +2,7 @@ import AppError from "../../../Errors/AppError";
 import { UserModel } from "../user.model";
 
 export const checkNotExists = async (email: string) => {
-  const res = await UserModel.findOne({ email: email });
+  const res = await UserModel.findOne({ email: email }).select("+password");
   console.log("checkNotExists res: ", res);
 
   if (!res) {

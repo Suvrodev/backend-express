@@ -12,15 +12,22 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.checkNotExists = void 0;
-const AppError_1 = __importDefault(require("../../../Errors/AppError"));
-const user_model_1 = require("../user.model");
-const checkNotExists = (email) => __awaiter(void 0, void 0, void 0, function* () {
-    const res = yield user_model_1.UserModel.findOne({ email: email }).select("+password");
-    console.log("checkNotExists res: ", res);
-    if (!res) {
-        throw new AppError_1.default(404, "User is not exists");
-    }
-    return res;
-});
-exports.checkNotExists = checkNotExists;
+exports.AuthControllers = void 0;
+const auth_service_1 = require("./auth.service");
+const catchAsync_1 = __importDefault(require("../../utils/catchAsync"));
+//Login User
+const loginUser = (0, catchAsync_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    // console.log("Come Data to Login: ", req.body);
+    const result = yield auth_service_1.AuthServices.loginUser(req.body);
+    res.status(200).json({
+        success: true,
+        message: "Login successful",
+        statusCode: 200,
+        data: {
+            token: result === null || result === void 0 ? void 0 : result.accessToken,
+        },
+    });
+}));
+exports.AuthControllers = {
+    loginUser,
+};

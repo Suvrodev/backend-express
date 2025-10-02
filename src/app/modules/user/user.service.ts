@@ -3,7 +3,6 @@ import { StudentModel } from "../students/student.model";
 import AppError from "../../Errors/AppError";
 import { TUser } from "./user.interface";
 import { UserModel } from "./user.model";
-import { checkUserDeleteOrNot } from "./userFunction/checkUserDeleteOrNot";
 import { NotExistsOrDeleted } from "./userFunction/NotExistsOrDeleted";
 import { checkNotExists } from "./userFunction/checkNotExists";
 import { checkExists } from "./userFunction/checkExists";

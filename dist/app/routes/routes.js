@@ -4,11 +4,16 @@ const express_1 = require("express");
 const student_route_1 = require("../modules/students/student.route");
 const subject_route_1 = require("../modules/subject/subject.route");
 const user_route_1 = require("../modules/user/user.route");
+const auth_route_1 = require("../modules/auth/auth.route");
 const router = (0, express_1.Router)();
 const moduleRoutes = [
     {
         path: "/user",
         route: user_route_1.UserRoutes,
+    },
+    {
+        path: "/auth",
+        route: auth_route_1.AuthRoutes,
     },
     {
         path: "/student",

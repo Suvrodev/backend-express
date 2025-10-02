@@ -13,6 +13,12 @@ const userSchema = new mongoose_1.Schema({
         unique: true,
         match: [/.+@.+\..+/, "Please provide a valid email address"],
     },
+    password: {
+        type: String,
+        required: [true, "Password is required"],
+        minlength: [6, "Password must be at least 8 characters long"],
+        select: false, // default query te password dibe na
+    },
     role: {
         type: String,
         enum: ["user", "admin"],
