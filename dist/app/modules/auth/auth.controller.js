@@ -17,14 +17,20 @@ const auth_service_1 = require("./auth.service");
 const catchAsync_1 = __importDefault(require("../../utils/catchAsync"));
 //Login User
 const loginUser = (0, catchAsync_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    // console.log("Come Data to Login: ", req.body);
     const result = yield auth_service_1.AuthServices.loginUser(req.body);
+    const { refreshToken } = result;
+    res.cookie("_backEnd_refresh", refreshToken, {
+        // secure: config.node_env === "production",
+        secure: true,
+        httpOnly: true,
+    });
     res.status(200).json({
         success: true,
         message: "Login successful",
         statusCode: 200,
         data: {
-            token: result === null || result === void 0 ? void 0 : result.accessToken,
+            accessToken: result === null || result === void 0 ? void 0 : result.accessToken,
+            refreshToken: result === null || result === void 0 ? void 0 : result.refreshToken,
         },
     });
 }));

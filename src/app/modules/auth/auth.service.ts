@@ -1,6 +1,7 @@
 import config from "../../config";
 import AppError from "../../Errors/AppError";
-import { getAccessToken } from "../../middleware/auth/accessToken";
+import { getAccessToken } from "../../myAuth/accessToken";
+import { getRefreshToken } from "../../myAuth/refreshToken";
 import { UserModel } from "../user/user.model";
 import { checkDeleted } from "../user/userFunction/checkDeleted";
 import { checkNotExists } from "../user/userFunction/checkNotExists";
@@ -33,11 +34,14 @@ const loginUser = async (payload: TLoginUser) => {
   }
 
   const accessToken = getAccessToken(isUserExists);
+  const refreshToken = getRefreshToken(isUserExists);
   console.log("Access Token: ", accessToken);
+  console.log("Refresh Token: ", accessToken);
   //Access Granted: Send AccessToken, Refresh Token
 
   return {
     accessToken,
+    refreshToken,
   };
 };
 

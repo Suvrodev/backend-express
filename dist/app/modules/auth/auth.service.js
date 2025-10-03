@@ -14,7 +14,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthServices = void 0;
 const AppError_1 = __importDefault(require("../../Errors/AppError"));
-const accessToken_1 = require("../../middleware/auth/accessToken");
+const accessToken_1 = require("../../myAuth/accessToken");
+const refreshToken_1 = require("../../myAuth/refreshToken");
 const checkDeleted_1 = require("../user/userFunction/checkDeleted");
 const checkNotExists_1 = require("../user/userFunction/checkNotExists");
 const loginUser = (payload) => __awaiter(void 0, void 0, void 0, function* () {
@@ -37,10 +38,13 @@ const loginUser = (payload) => __awaiter(void 0, void 0, void 0, function* () {
         throw new AppError_1.default(401, "Password is Incorrect");
     }
     const accessToken = (0, accessToken_1.getAccessToken)(isUserExists);
+    const refreshToken = (0, refreshToken_1.getRefreshToken)(isUserExists);
     console.log("Access Token: ", accessToken);
+    console.log("Refresh Token: ", accessToken);
     //Access Granted: Send AccessToken, Refresh Token
     return {
         accessToken,
+        refreshToken,
     };
 });
 exports.AuthServices = {

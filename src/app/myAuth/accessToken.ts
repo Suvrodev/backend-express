@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import config from "../../config";
+import config from "../config";
 
 export const getAccessToken = (user: any) => {
   //Create Token and send to the client
@@ -14,11 +14,13 @@ export const getAccessToken = (user: any) => {
     jwtPayload,
     config.jwt_access_secreet as string,
     {
-      expiresIn: "30d",
+      expiresIn: "2d",
+      //  expiresIn: "1m",
+      // expiresIn: "20s",
     }
   );
   console.log("JwtPayload: ", jwtPayload);
   return accessToken;
 };
 
-require("crypto").randomBytes(64).toString("hex");
+// require("crypto").randomBytes(64).toString("hex");

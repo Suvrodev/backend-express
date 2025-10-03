@@ -16,8 +16,8 @@ By Static-------------------------
 Delete student asbe na and user already exists by middleware------------------------
 send email
 Image upload
-Check User or admin in route (header)
-d.ts
+Check User or admin in route (header)----------------
+d.ts-----------------------
 check role from header
 Refresh token
 get access token by refresh token
@@ -29,6 +29,6 @@ super admin
 
 
 check:
-1. check access token
-2. with expire date
+1. check access token-----------------
+2. with expire date----------------------
 3. cookies
