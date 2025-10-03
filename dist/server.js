@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
 const app_1 = __importDefault(require("./app"));
 const config_1 = __importDefault(require("./app/config"));
+const create_super_admin_1 = __importDefault(require("./app/utils/super-admin/create-super-admin"));
 let server;
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
@@ -22,6 +23,8 @@ function main() {
             // const PORT = Number(process.env.PORT) || 7000;
             // const DB_URL = process.env.DATABASE_URL as string;
             yield mongoose_1.default.connect(config_1.default.database_url);
+            //For super Admin
+            yield (0, create_super_admin_1.default)();
             server = app_1.default.listen(config_1.default.port, () => {
                 // console.log(`Back end is listening on port ${config.database_url}`);
                 console.log("\x1b[34m%s\x1b[0m", `🔵 Back end is listening on port ${config_1.default.database_url}`);

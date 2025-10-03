@@ -1,13 +1,13 @@
 import express from "express";
 import { studentControllers } from "./student.controller";
 import auth from "../../middleware/auth/auth";
-import { rolesGuard } from "../../myAuth/authGuard";
+import { rolesGuard } from "../../utils/myAuth/authGuard";
 
 const router = express.Router();
 
 router.post(
   "/create-student",
-  auth(rolesGuard.admin),
+  auth(rolesGuard.admin, rolesGuard["super-admin"]),
   studentControllers.createStudent
 );
 router.get("/", auth(), studentControllers.getAllStudent);

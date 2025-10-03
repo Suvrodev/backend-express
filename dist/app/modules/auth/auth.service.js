@@ -16,12 +16,12 @@ exports.AuthServices = void 0;
 const http_status_1 = __importDefault(require("http-status"));
 const config_1 = __importDefault(require("../../config"));
 const AppError_1 = __importDefault(require("../../Errors/AppError"));
-const accessToken_1 = require("../../myAuth/accessToken");
-const refreshToken_1 = require("../../myAuth/refreshToken");
 const checkDeleted_1 = require("../user/userFunction/checkDeleted");
 const checkNotExists_1 = require("../user/userFunction/checkNotExists");
 // import Jwt from "jsonwebtoken";
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+const accessToken_1 = require("../../utils/myAuth/accessToken");
+const refreshToken_1 = require("../../utils/myAuth/refreshToken");
 const loginUser = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     console.log("============================");
     console.log("Payloadddd: ", payload);

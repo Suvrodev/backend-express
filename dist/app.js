@@ -25,7 +25,25 @@ const app = (0, express_1.default)();
 app.use(express_1.default.json());
 //cookie parser
 app.use((0, cookie_parser_1.default)());
-app.use((0, cors_1.default)());
+/**
+ * Cors
+ */
+const allowedOrigins = ["http://localhost:5173", "http://localhost:3000"];
+app.use((0, cors_1.default)({
+    origin: function (origin, callback) {
+        console.log("Incoming origin:", origin);
+        // Allow requests with no origin (like mobile apps, curl, etc.)
+        if (!origin)
+            return callback(null, true);
+        if (allowedOrigins.includes(origin)) {
+            return callback(null, true);
+        }
+        else {
+            return callback(new Error("Not allowed by CORS"));
+        }
+    },
+    credentials: true,
+}));
 //application route
 app.use("/api", routes_1.default);
 app.get("/", (req, res) => {

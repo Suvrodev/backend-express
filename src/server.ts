@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import app from "./app";
 import config from "./app/config";
 import { Server } from "http";
+import seedSuperAdmin from "./app/utils/super-admin/create-super-admin";
 
 let server: Server;
 
@@ -11,6 +12,9 @@ async function main() {
     // const DB_URL = process.env.DATABASE_URL as string;
 
     await mongoose.connect(config.database_url as string);
+
+    //For super Admin
+    await seedSuperAdmin();
 
     server = app.listen(config.port, () => {
       // console.log(`Back end is listening on port ${config.database_url}`);

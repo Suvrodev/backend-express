@@ -1,14 +1,15 @@
 import status from "http-status";
 import config from "../../config";
 import AppError from "../../Errors/AppError";
-import { getAccessToken } from "../../myAuth/accessToken";
-import { getRefreshToken } from "../../myAuth/refreshToken";
+
 import { UserModel } from "../user/user.model";
 import { checkDeleted } from "../user/userFunction/checkDeleted";
 import { checkNotExists } from "../user/userFunction/checkNotExists";
 import { TLoginUser } from "./auth.interface";
 // import Jwt from "jsonwebtoken";
 import jwt, { JwtPayload } from "jsonwebtoken";
+import { getAccessToken } from "../../utils/myAuth/accessToken";
+import { getRefreshToken } from "../../utils/myAuth/refreshToken";
 
 const loginUser = async (payload: TLoginUser) => {
   console.log("============================");
