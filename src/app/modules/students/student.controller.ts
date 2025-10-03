@@ -4,6 +4,7 @@ import { studentValidationSchemaByZod } from "./student.validation";
 import catchAsync from "../../utils/catchAsync";
 
 const createStudent = catchAsync(async (req, res, next) => {
+  console.log("header user ", req?.user?.email);
   const studentData = req.body;
   // console.log("Studentt Data: ", studentData);
 

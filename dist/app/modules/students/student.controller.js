@@ -16,6 +16,8 @@ exports.studentControllers = void 0;
 const student_service_1 = require("./student.service");
 const catchAsync_1 = __importDefault(require("../../utils/catchAsync"));
 const createStudent = (0, catchAsync_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
+    console.log("header user ", (_a = req === null || req === void 0 ? void 0 : req.user) === null || _a === void 0 ? void 0 : _a.email);
     const studentData = req.body;
     // console.log("Studentt Data: ", studentData);
     // const zodParserData = studentValidationSchemaByZod.parse(studentData);

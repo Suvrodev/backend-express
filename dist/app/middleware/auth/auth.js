@@ -17,24 +17,40 @@ const AppError_1 = __importDefault(require("../../Errors/AppError"));
 const http_status_1 = __importDefault(require("http-status"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const config_1 = __importDefault(require("../../config"));
-const auth = () => {
+const auth = (...reqRoles) => {
     return (0, catchAsync_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+        console.log("bearer token: ", req.headers);
         const extractedToken = req.headers.authorization;
         console.log("Extracted token: ", extractedToken);
-        const token = extractedToken.split(" ")[1];
-        console.log("Token===: ", token);
+        const token = extractedToken === null || extractedToken === void 0 ? void 0 : extractedToken.split(" ")[1];
+        console.log("Token: ", token);
         if (!token) {
             throw new AppError_1.default(http_status_1.default.UNAUTHORIZED, "You are not Authorized");
         }
         // verify a token
-        jsonwebtoken_1.default.verify(token, config_1.default.jwt_access_secreet, function (err, decoded) {
-            if (err) {
-                throw new AppError_1.default(http_status_1.default.UNAUTHORIZED, "You are not Authorized");
-            }
-            console.log("Decoded: ", decoded);
+        // jwt.verify(
+        //   token,
+        //   config.jwt_access_secreet as string,
+        //   function (err, decoded) {
+        //     if (err) {
+        //       throw new AppError(status.UNAUTHORIZED, "You are not Authorized");
+        //     }
+        //     console.log("Decoded: ", decoded);
+        //     req.user = decoded as JwtPayload;
+        //     next();
+        //   }
+        // );
+        // verify token
+        const decoded = jsonwebtoken_1.default.verify(token, config_1.default.jwt_access_secreet);
+        console.log("decoded: ", decoded);
+        if (decoded) {
             req.user = decoded;
-            next();
-        });
+        }
+        console.log("Require roles: ", reqRoles);
+        if (reqRoles.length && !reqRoles.includes(decoded === null || decoded === void 0 ? void 0 : decoded.role)) {
+            throw new AppError_1.default(http_status_1.default.FORBIDDEN, "You have not access");
+        }
+        next();
     }));
 };
 exports.default = auth;
