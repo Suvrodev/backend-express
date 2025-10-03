@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 // const express = require('express')
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
+const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const config_1 = __importDefault(require("./app/config"));
 const globalErrorHandler_1 = __importDefault(require("./app/middleware/globalErrorHandler"));
 const notFound_1 = __importDefault(require("./app/middleware/notFound"));
@@ -22,6 +23,8 @@ const routes_1 = __importDefault(require("./app/routes/routes"));
 const app = (0, express_1.default)();
 //Perser For req.body - json
 app.use(express_1.default.json());
+//cookie parser
+app.use((0, cookie_parser_1.default)());
 app.use((0, cors_1.default)());
 //application route
 app.use("/api", routes_1.default);

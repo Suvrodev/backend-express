@@ -7,6 +7,7 @@ import express, {
   Response,
 } from "express";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 import config from "./app/config";
 
 import globalErrorHandler from "./app/middleware/globalErrorHandler";
@@ -16,6 +17,9 @@ const app: Application = express();
 
 //Perser For req.body - json
 app.use(express.json());
+//cookie parser
+app.use(cookieParser());
+
 app.use(cors());
 
 //application route

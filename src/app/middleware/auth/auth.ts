@@ -17,20 +17,6 @@ const auth = (...reqRoles: string[]) => {
       throw new AppError(status.UNAUTHORIZED, "You are not Authorized");
     }
 
-    // verify a token
-    // jwt.verify(
-    //   token,
-    //   config.jwt_access_secreet as string,
-    //   function (err, decoded) {
-    //     if (err) {
-    //       throw new AppError(status.UNAUTHORIZED, "You are not Authorized");
-    //     }
-    //     console.log("Decoded: ", decoded);
-    //     req.user = decoded as JwtPayload;
-    //     next();
-    //   }
-    // );
-
     // verify token
     const decoded = jwt.verify(
       token,

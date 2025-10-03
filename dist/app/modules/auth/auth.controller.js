@@ -34,6 +34,19 @@ const loginUser = (0, catchAsync_1.default)((req, res, next) => __awaiter(void 0
         },
     });
 }));
+//Get Access Token by redresh token
+const refreshToken = (0, catchAsync_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
+    console.log("in cookies: ", req.cookies);
+    const result = yield auth_service_1.AuthServices.refreshToken((_a = req.cookies) === null || _a === void 0 ? void 0 : _a._backEnd_refresh);
+    res.status(200).json({
+        success: true,
+        message: "Generate Access token successfully",
+        statusCode: 200,
+        data: result,
+    });
+}));
 exports.AuthControllers = {
     loginUser,
+    refreshToken,
 };

@@ -18,8 +18,8 @@ send email
 Image upload
 Check User or admin in route (header)----------------
 d.ts-----------------------
-check role from header
-Refresh token
+check role from header-----------------
+Refresh token-------------------------
 get access token by refresh token
 check origin--------------------------
 super admin
@@ -31,4 +31,4 @@ super admin
 check:
 1. check access token-----------------
 2. with expire date----------------------
-3. cookies
+3. cookies----------------

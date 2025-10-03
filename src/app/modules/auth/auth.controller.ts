@@ -26,6 +26,21 @@ const loginUser: RequestHandler = catchAsync(async (req, res, next) => {
   });
 });
 
+//Get Access Token by redresh token
+const refreshToken: RequestHandler = catchAsync(async (req, res, next) => {
+  console.log("in cookies: ", req.cookies);
+
+  const result = await AuthServices.refreshToken(req.cookies?._backEnd_refresh);
+
+  res.status(200).json({
+    success: true,
+    message: "Generate Access token successfully",
+    statusCode: 200,
+    data: result,
+  });
+});
+
 export const AuthControllers = {
   loginUser,
+  refreshToken,
 };

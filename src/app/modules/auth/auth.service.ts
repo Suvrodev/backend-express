@@ -1,3 +1,4 @@
+import status from "http-status";
 import config from "../../config";
 import AppError from "../../Errors/AppError";
 import { getAccessToken } from "../../myAuth/accessToken";
@@ -7,7 +8,7 @@ import { checkDeleted } from "../user/userFunction/checkDeleted";
 import { checkNotExists } from "../user/userFunction/checkNotExists";
 import { TLoginUser } from "./auth.interface";
 // import Jwt from "jsonwebtoken";
-import jwt from "jsonwebtoken";
+import jwt, { JwtPayload } from "jsonwebtoken";
 
 const loginUser = async (payload: TLoginUser) => {
   console.log("============================");
@@ -36,7 +37,7 @@ const loginUser = async (payload: TLoginUser) => {
   const accessToken = getAccessToken(isUserExists);
   const refreshToken = getRefreshToken(isUserExists);
   console.log("Access Token: ", accessToken);
-  console.log("Refresh Token: ", accessToken);
+  console.log("Refresh Token: ", refreshToken);
   //Access Granted: Send AccessToken, Refresh Token
 
   return {
@@ -45,6 +46,35 @@ const loginUser = async (payload: TLoginUser) => {
   };
 };
 
+/**
+ *
+ * Get accress token by refresh token
+ */
+
+const refreshToken = async (token: string) => {
+  console.log("Refresh token in service: ", token);
+  if (!token) {
+    throw new AppError(status.UNAUTHORIZED, "You are not authorized");
+  }
+
+  // verify token
+  const decoded = jwt.verify(
+    token,
+    config.jwt_refresh_secreet as string
+  ) as JwtPayload;
+
+  console.log("decoded: ", decoded);
+  const { email } = decoded;
+  console.log("email: ");
+  const isUserExists = await checkNotExists(email);
+  console.log("is User Exists: ", isUserExists);
+  const accessToken = getAccessToken(isUserExists);
+  console.log("Access Token: ", accessToken);
+
+  return { accessToken };
+};
+
 export const AuthServices = {
   loginUser,
+  refreshToken,
 };
