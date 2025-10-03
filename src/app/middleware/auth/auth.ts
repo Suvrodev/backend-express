@@ -18,21 +18,44 @@ const auth = (...reqRoles: string[]) => {
     }
 
     // verify token
-    const decoded = jwt.verify(
-      token,
-      config.jwt_access_secreet as string
-    ) as JwtPayload;
+    // const decoded = jwt.verify(
+    //   token,
+    //   config.jwt_access_secreet as string
+    // ) as JwtPayload;
 
-    console.log("decoded: ", decoded);
-    if (decoded) {
-      req.user = decoded as JwtPayload;
-    }
-    console.log("Require roles: ", reqRoles);
+    // console.log("decoded: ", decoded);
+    // if (decoded) {
+    //   req.user = decoded as JwtPayload;
+    // }
+    // console.log("Require roles: ", reqRoles);
 
-    if (reqRoles.length && !reqRoles.includes(decoded?.role)) {
-      throw new AppError(status.FORBIDDEN, "You have not access");
+    // if (reqRoles.length && !reqRoles.includes(decoded?.role)) {
+    //   throw new AppError(status.FORBIDDEN, "You have not access");
+    // }
+    // next();
+
+    try {
+      const decoded = jwt.verify(
+        token,
+        config.jwt_access_secreet as string
+      ) as JwtPayload;
+
+      req.user = decoded;
+
+      if (reqRoles.length && !reqRoles.includes(decoded?.role)) {
+        throw new AppError(status.FORBIDDEN, "You have not access");
+      }
+
+      next();
+    } catch (error: any) {
+      if (error.name === "TokenExpiredError") {
+        throw new AppError(status.UNAUTHORIZED, "Access token expired");
+      }
+      if (error.name === "JsonWebTokenError") {
+        throw new AppError(status.UNAUTHORIZED, "Invalid access token");
+      }
+      throw error;
     }
-    next();
   });
 };
 

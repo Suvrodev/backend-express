@@ -14,9 +14,9 @@ export const getAccessToken = (user: any) => {
     jwtPayload,
     config.jwt_access_secreet as string,
     {
-      expiresIn: "2d",
+      // expiresIn: "2d",
       //  expiresIn: "1m",
-      // expiresIn: "20s",
+      expiresIn: "20s",
     }
   );
   console.log("JwtPayload: ", jwtPayload);

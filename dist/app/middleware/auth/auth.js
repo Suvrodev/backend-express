@@ -28,16 +28,36 @@ const auth = (...reqRoles) => {
             throw new AppError_1.default(http_status_1.default.UNAUTHORIZED, "You are not Authorized");
         }
         // verify token
-        const decoded = jsonwebtoken_1.default.verify(token, config_1.default.jwt_access_secreet);
-        console.log("decoded: ", decoded);
-        if (decoded) {
+        // const decoded = jwt.verify(
+        //   token,
+        //   config.jwt_access_secreet as string
+        // ) as JwtPayload;
+        // console.log("decoded: ", decoded);
+        // if (decoded) {
+        //   req.user = decoded as JwtPayload;
+        // }
+        // console.log("Require roles: ", reqRoles);
+        // if (reqRoles.length && !reqRoles.includes(decoded?.role)) {
+        //   throw new AppError(status.FORBIDDEN, "You have not access");
+        // }
+        // next();
+        try {
+            const decoded = jsonwebtoken_1.default.verify(token, config_1.default.jwt_access_secreet);
             req.user = decoded;
+            if (reqRoles.length && !reqRoles.includes(decoded === null || decoded === void 0 ? void 0 : decoded.role)) {
+                throw new AppError_1.default(http_status_1.default.FORBIDDEN, "You have not access");
+            }
+            next();
         }
-        console.log("Require roles: ", reqRoles);
-        if (reqRoles.length && !reqRoles.includes(decoded === null || decoded === void 0 ? void 0 : decoded.role)) {
-            throw new AppError_1.default(http_status_1.default.FORBIDDEN, "You have not access");
+        catch (error) {
+            if (error.name === "TokenExpiredError") {
+                throw new AppError_1.default(http_status_1.default.UNAUTHORIZED, "Access token expired");
+            }
+            if (error.name === "JsonWebTokenError") {
+                throw new AppError_1.default(http_status_1.default.UNAUTHORIZED, "Invalid access token");
+            }
+            throw error;
         }
-        next();
     }));
 };
 exports.default = auth;

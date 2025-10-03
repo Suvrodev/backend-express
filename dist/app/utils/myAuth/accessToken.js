@@ -15,9 +15,9 @@ const getAccessToken = (user) => {
         role: user === null || user === void 0 ? void 0 : user.role,
     };
     const accessToken = jsonwebtoken_1.default.sign(jwtPayload, config_1.default.jwt_access_secreet, {
-        expiresIn: "2d",
+        // expiresIn: "2d",
         //  expiresIn: "1m",
-        // expiresIn: "20s",
+        expiresIn: "20s",
     });
     console.log("JwtPayload: ", jwtPayload);
     return accessToken;
